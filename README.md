@@ -47,6 +47,7 @@ cruise the <a href="https://dumps.wikimedia.org/enwiki/latest/">wikipedia dump p
 
 <p></p>
 <b>3. Start</b> the javascript <br/>
+
 `npm install dumpster-dip`
 
 ```js
@@ -69,6 +70,7 @@ en-wikipedia takes about 4hrs on a macbook.
 <!-- spacer -->
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
+---
 
 This tool is intended to be a clean way to pull random bits out of wikipedia, like:
 
@@ -82,14 +84,11 @@ await dip({
 
 It uses <a href="https://github.com/spencermountain/wtf_wikipedia">wtf_wikipedia</a> as the wikiscript parser.
 
-dumpster-dip is a fork of <a href="https://github.com/spencermountain/dumpster-dip/tree/dev">dumpster-dip</a>, which writes data to mongodb.
-This library writes parsed data right to the file-system, instead.
-
 <!-- spacer -->
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 
-### Outputs
+### Outputs:
 
 By default, it outputs an individual file for every wikipedia article.
 Sometimes operating systems don't like having ~6m files in one folder, though - so it nests them 2-deep, using the first 4 characters of the filename's hash:
@@ -112,7 +111,7 @@ let file = getPath('Dennis Rodman')
 This is the same scheme that wikipedia does internally.
 
 
----
+##### Flat results:
 
 if you want all files in one flat directory, you can do:
 ```js
@@ -122,6 +121,7 @@ let opts = {
 }
 ```
 
+##### Results in one file:
 if you want all results in one file, you can do:
 ```js
 let opts = {
