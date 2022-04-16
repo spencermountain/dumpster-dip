@@ -3,23 +3,34 @@
 	<a href="https://npmjs.org/package/dumpster-dip">
 		<img src="https://img.shields.io/npm/v/dumpster-dip.svg?style=flat-square" />
 	</a>
+  <!-- <a href="https://www.codacy.com/app/spencerkelly86/dumpster-dip">
+    <img src="https://api.codacy.com/project/badge/grade/6fad3c588d3d4c97ab8a9abf9f2a5a01" />
+  </a> -->
 	<div>wikipedia dump parser</div>
-  <div align="center">
-    <img height="50px" src="https://user-images.githubusercontent.com/399657/68221814-05ed1680-ffb8-11e9-8b6b-c7528d163871.png"/>
-  </div>
   <sub>
     by
-    <a href="http://spencermounta.in/">Spencer Kelly</a> and
-    <a href="https://github.com/spencermountain/dumpster-dive/graphs/contributors">
+    <a href="http://spencermounta.in/">Spencer Kelly</a>, <a href="https://github.com/devrim">Devrim Yasar</a>,
+		 and
+    <a href="https://github.com/spencermountain/wtf_wikipedia/graphs/contributors">
       others
     </a>
   </sub>
 </div>
 <p></p>
+
+<div align="center">
+  gets a wikipedia <a href="https://dumps.wikimedia.org">xml dump</a> into tiny json files,
+  <div>so you can get a bunch of easy data.</div>
+
+  <h2 align="center">〰〰〰〰〰〰〰〰</h2>
+  <div><sup></sup></div>
+	<img src="https://user-images.githubusercontent.com/399657/39391259-b57ca9e0-4a6e-11e8-8b33-2064e5fc187e.png"/>
+</div>
+<p></p>
 <!-- spacer -->
 <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-<b>dumpster-dip</b> is a nodejs script that allows you to parse a wikipedia dump into ad-hoc data.
+<b>dumpster-dip</b> is a node-js script that allows you to parse a wikipedia dump into ad-hoc data.
 
 <!-- spacer -->
 <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
@@ -43,7 +54,7 @@ dip(opts).then(() => {
 ```
 It uses <a href="https://github.com/spencermountain/wtf_wikipedia">wtf_wikipedia</a> as the wikiscript parser.
 
-dumpster-dip is a fork of <a href="https://github.com/spencermountain/dumpster-dive/tree/dev">dumpster-dive</a>, which writes data to mongodb.
+dumpster-dip is a fork of <a href="https://github.com/spencermountain/dumpster-dip/tree/dev">dumpster-dip</a>, which writes data to mongodb.
 This library writes parsed data right to the file-system, instead.
 
 <!-- spacer -->
@@ -143,9 +154,11 @@ let opts = {
 }
 ```
 
-<div >
-  <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/399657/68221731-e8b84800-ffb7-11e9-8453-6395e0e903fa.png"/>
 </div>
+
 <!-- spacer -->
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
