@@ -22,7 +22,7 @@
   gets a wikipedia <a href="https://dumps.wikimedia.org">xml dump</a> into tiny json files,
   <div>so you can get a bunch of easy data.</div>
 
-  <h2 align="center">〰〰〰〰〰〰〰〰</h2>
+  <h2 align="center">👍 〰〰〰〰〰〰〰〰 👍</h2>
 </div>
 <p></p>
 <!-- spacer -->
@@ -30,14 +30,23 @@
 
 <b>dumpster-dip</b> is a script that allows you to parse a wikipedia dump into ad-hoc data.
 
-<b><a href="https://github.com/spencermountain/dumpster-dive">dumpster-dive</a></b> puts it into mongodb, instead.
+<b><a href="https://github.com/spencermountain/dumpster-dive">dumpster-dive</a></b> is a script that puts it into mongodb, instead.
 
 <i >use whatever you prefer!</i>
 
 <!-- spacer -->
 <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
+<b>1. Download</b> a dump <br/>
+cruise the <a href="https://dumps.wikimedia.org/enwiki/latest/">wikipedia dump page</a> and look for `${LANG}wiki-latest-pages-articles.xml.bz2`
 
+<p></p>
+<b>2. Unzip</b> the dump <br/>
+
+`bzip2 -d ./path/to/enwiki-latest-pages-articles.xml.bz2`
+
+<p></p>
+<b>3. Start</b> the javascript <br/>
 `npm install dumpster-dip`
 
 ```js
@@ -54,6 +63,9 @@ dip(opts).then(() => {
   console.log('done!')
 })
 ```
+
+en-wikipedia takes about 4hrs on a macbook.
+
 <!-- spacer -->
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
