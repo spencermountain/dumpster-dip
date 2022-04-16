@@ -3,7 +3,7 @@ const cpuCount = os.cpus().length
 
 export default {
   // directory for all our new files
-  output: './dip', // (default)
+  outputDir: './dip', // (default)
   // which wikipedia namespaces to handle (null will do all)
   namespace: 0, //(default article namespace)
   // define how many concurrent workers to run

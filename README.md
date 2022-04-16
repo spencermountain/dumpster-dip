@@ -49,6 +49,8 @@ await dip({
 })
 ```
 
+### Outputs
+
 By default, it outputs an individual file for every wikipedia article.
 Sometimes operating systems don't like having ~6m files in one folder, though - so it nests them 2-deep, using the first 4 characters of the filename's hash:
 
@@ -58,13 +60,31 @@ Sometimes operating systems don't like having ~6m files in one folder, though - 
     /Dennis_Rodman.txt
     /Hilary_Clinton.txt
 ```
+This is the same scheme that wikipedia does internally.
 
+if you want all files in one flat directory, you can do:
+```js
+let opts = {
+  outputDir: './results', 
+  outputMode: 'flat', 
+}
+```
+
+if you want all results in one file, you can do:
+```js
+let opts = {
+  outputDir: './results', 
+  outputMode: 'ndjson', 
+}
+```
 
 ### Options
 ```js
 let opts = {
   // directory for all our new files
-  output: './dip', // (default)
+  outputDir: './results', // (default)
+  // how we should write the results
+  outputMode: 'nested', // (default)
   // which wikipedia namespaces to handle (null will do all)
   namespace: 0, //(default article namespace)
   // define how many concurrent workers to run

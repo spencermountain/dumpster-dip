@@ -4,7 +4,7 @@ import EventEmitter from 'events'
 import { Worker } from 'worker_threads'
 import { fileURLToPath } from 'url'
 import { JSONfn } from 'jsonfn'
-import { checkFile } from './prep.js'
+import { checkFile, makeDir } from './prep.js'
 import { blue, yellow, magenta, grey } from '../_lib.js'
 const dir = path.dirname(fileURLToPath(import.meta.url))
 
@@ -15,6 +15,8 @@ class Pool extends EventEmitter {
     this.opts = opts
     this.workers = []
     this.methods = JSONfn.stringify(opts)
+    // create the results directory
+    makeDir(opts.outputDir)
     // start the logger
     this.heartbeat = setInterval(() => this.beat(), this.opts.heartbeat)
     this.status = [{}]
@@ -31,7 +33,8 @@ class Pool extends EventEmitter {
         workerData: {
           index: i,
           input: this.opts.input,
-          output: this.opts.output,
+          outputDir: this.opts.outputDir,
+          outputMode: this.opts.outputMode,
           namespace: this.opts.namespace,
           workers: this.opts.workers,
           methods: this.methods,

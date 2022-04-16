@@ -5,7 +5,9 @@ const afwiki = `/Users/spencer/data/wikipedias/afwiki-latest-pages-articles.xml`
 const opts = {
   input: afwiki,
   // directory for all our new files
-  output: './dip', // (default)
+  outputDir: './results', // (default)
+  // how we should write the results
+  outputMode: 'flat', // (default)
   // which wikipedia namespaces to handle (null will do all)
   namespace: 0, //(default article namespace)
   // define how many concurrent workers to run
@@ -35,16 +37,3 @@ const opts = {
 dip(opts).then(() => {
   console.log('done')
 })
-
-// import { JSONfn } from 'jsonfn'
-// const obj = {
-//   foo: 3,
-//   doPage: function () {
-//     console.log('did')
-//   }
-// }
-// let str = JSONfn.stringify(obj)
-// console.log(str)
-// let o = JSONfn.parse(str)
-// console.log(o)
-// o.doPage()

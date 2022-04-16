@@ -3,8 +3,9 @@ import { JSONfn } from 'jsonfn'
 import wtf from 'wtf_wikipedia'
 import reader from './01-reader.js'
 import { magenta } from '../_lib.js'
+import output from './output/index.js'
 
-let { input, output, index, workers, namespace, redirects, disambiguation } = workerData
+let { input, outputDir, outputMode, index, workers, namespace, redirects, disambiguation } = workerData
 let methods = JSONfn.parse(workerData.methods)
 methods.extend(wtf)
 
@@ -38,7 +39,7 @@ const eachPage = function (meta) {
     return null
   }
   // skip disambiguation pages
-  if (redirects === false && doc.isDisambig()) {
+  if (disambiguation === false && doc.isDisambig()) {
     status.disambiguation += 1
     status.skipped += 1
     return null
@@ -51,8 +52,9 @@ const eachPage = function (meta) {
   let res = methods.parse(doc)
   if (res) {
     status.written += 1
+    // console.log(res)
+    output(res, { outputDir, outputMode })
   }
-  // console.log(res)
 }
 
 // start off the worker!

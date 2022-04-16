@@ -4,7 +4,11 @@
   "description": "parse a wikipedia dump into tiny files",
   "main": "./src/index.js",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "clean": "rm -rf ./results && mkdir ./results",
+    "stat": "find results -type f | wc -l",
+    "watch": "node ./scratch.js"
+  },
   "exports": {
     ".": {
       "import": "./src/index.js"

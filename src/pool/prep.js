@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import fs from 'fs'
 import { red, blue, grey } from '../_lib.js'
+import path from 'path'
+const root = path.resolve()
 
 const checkFile = function (file) {
   if (!file || !fs.existsSync(file)) {
@@ -13,5 +15,12 @@ const checkFile = function (file) {
     console.log(grey('     ($ bzip2 -d ' + file + ' )'));
     process.exit(1);
   }
-};
-export { checkFile }
+}
+
+const makeDir = function (name) {
+  let dir = path.join(root, name)
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+  }
+}
+export { checkFile, makeDir }
