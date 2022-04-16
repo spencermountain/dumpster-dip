@@ -7,7 +7,7 @@ const opts = {
   // directory for all our new files
   outputDir: './results', // (default)
   // how we should write the results
-  outputMode: 'flat', // (default)
+  outputMode: 'nested', // (default)
   // which wikipedia namespaces to handle (null will do all)
   namespace: 0, //(default article namespace)
   // define how many concurrent workers to run
@@ -37,3 +37,9 @@ const opts = {
 dip(opts).then(() => {
   console.log('done')
 })
+
+
+// import getPath from 'dumpster-dip/nested-path'
+// let file = getPath('Dennis Rodman')
+// console.log(file)
+// ./BE/EF/Dennis_Rodman.txt

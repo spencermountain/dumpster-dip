@@ -4,7 +4,9 @@
 		<img src="https://img.shields.io/npm/v/dumpster-dip.svg?style=flat-square" />
 	</a>
 	<div>wikipedia dump parser</div>
-  <div><i>work in progress</i></div>
+  <div align="center">
+    <img height="50px" src="https://user-images.githubusercontent.com/399657/68221814-05ed1680-ffb8-11e9-8b6b-c7528d163871.png"/>
+  </div>
   <sub>
     by
     <a href="http://spencermounta.in/">Spencer Kelly</a> and
@@ -14,8 +16,14 @@
   </sub>
 </div>
 <p></p>
+<!-- spacer -->
+<img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 <b>dumpster-dip</b> is a nodejs script that allows you to parse a wikipedia dump into ad-hoc data.
+
+<!-- spacer -->
+<img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
 
 `npm install dumpster-dip`
 
@@ -38,6 +46,9 @@ It uses <a href="https://github.com/spencermountain/wtf_wikipedia">wtf_wikipedia
 dumpster-dip is a fork of <a href="https://github.com/spencermountain/dumpster-dive/tree/dev">dumpster-dive</a>, which writes data to mongodb.
 This library writes parsed data right to the file-system, instead.
 
+<!-- spacer -->
+<img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
 
 This tool is intended to be a clean way to pull random bits out of wikipedia, like:
 
@@ -48,6 +59,10 @@ await dip({
   parse: (doc) => doc.infobox().get('birth_date')
 })
 ```
+
+<!-- spacer -->
+<img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
 
 ### Outputs
 
@@ -60,7 +75,19 @@ Sometimes operating systems don't like having ~6m files in one folder, though - 
     /Dennis_Rodman.txt
     /Hilary_Clinton.txt
 ```
+
+as a helper, this library exposes a function for navigating this directory scheme:
+
+```js
+import getPath from 'dumpster-dip/nested-path'
+let file = getPath('Dennis Rodman')
+// ./BE/EF/Dennis_Rodman.txt
+```
+
 This is the same scheme that wikipedia does internally.
+
+
+---
 
 if you want all files in one flat directory, you can do:
 ```js
@@ -78,6 +105,9 @@ let opts = {
 }
 ```
 
+<!-- spacer -->
+<img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
 ### Options
 ```js
 let opts = {
@@ -85,6 +115,7 @@ let opts = {
   outputDir: './results', // (default)
   // how we should write the results
   outputMode: 'nested', // (default)
+
   // which wikipedia namespaces to handle (null will do all)
   namespace: 0, //(default article namespace)
   // define how many concurrent workers to run
@@ -110,8 +141,14 @@ let opts = {
     })
   },
 }
-
 ```
 
+<div >
+  <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+</div>
+<!-- spacer -->
+<img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+<div><i>work in progress</i></div>
 
 MIT

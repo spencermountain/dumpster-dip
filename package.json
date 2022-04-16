@@ -1,6 +1,6 @@
 {
   "name": "dumpster-dip",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "parse a wikipedia dump into tiny files",
   "main": "./src/index.js",
   "type": "module",
@@ -12,33 +12,29 @@
   "exports": {
     ".": {
       "import": "./src/index.js"
+    },
+    "./nested-path": {
+      "import": "./src/makePath.js"
     }
   },
-  "engines": {
-    "node": ">=12.0.0"
-  },
+  "author": "Spencer Kelly <spencermountain@gmail.com> (http://spencermounta.in)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/spencermountain/dumpster-dip.git"
   },
-  "author": "Spencer Kelly <spencermountain@gmail.com> (http://spencermounta.in)",
   "bugs": {
     "url": "https://github.com/spencermountain/dumpster-dip/issues"
   },
   "homepage": "https://github.com/spencermountain/dumpster-dip#readme",
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "dependencies": {
-    "chalk": "5.0.1",
     "jsonfn": "0.31.0",
-    "prettysize": "2.0.0",
     "sunday-driver": "1.0.2",
-    "worker-nodes": "2.4.0",
     "wtf_wikipedia": "10.0.0",
     "yargs": "17.4.1"
   },
-  "devDependencies": {
-    "shelljs": "0.8.5",
-    "tap-spec": "5.0.0",
-    "tape": "5.5.3"
-  },
+  "devDependencies": {},
   "license": "MIT"
 }

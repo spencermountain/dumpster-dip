@@ -3,7 +3,7 @@ import { JSONfn } from 'jsonfn'
 import wtf from 'wtf_wikipedia'
 import reader from './01-reader.js'
 import { magenta } from '../_lib.js'
-import output from './output/index.js'
+import output from '../output/index.js'
 
 let { input, outputDir, outputMode, index, workers, namespace, redirects, disambiguation } = workerData
 let methods = JSONfn.parse(workerData.methods)
