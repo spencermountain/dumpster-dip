@@ -55,7 +55,7 @@ import dip from 'dumpster-dip'
 
 const opts = {
   input: '/path/to/my-wikipedia-article-dump.xml',
-  parse: (doc) => {
+  parse: function(doc) {
     return doc.sentences()[0].text()// return the first sentence of each page
   }
 }
@@ -77,8 +77,8 @@ This tool is intended to be a clean way to pull random bits out of wikipedia, li
 **'all the birthdays of basketball players'**
 ```js
 await dip({
-  doPage: (doc) => doc.categories().find(cat => cat === `American men's basketball players`),
-  parse: (doc) => doc.infobox().get('birth_date')
+  doPage: function(doc){ return doc.categories().find(cat => cat === `American men's basketball players`)},
+  parse: function(doc){ return doc.infobox().get('birth_date')}
 })
 ```
 
@@ -154,9 +154,9 @@ let opts = {
   disambiguation: true, // (default)
 
   // what do return, for every page
-  parse: (doc) => doc.json(), // (default)
+  parse: function(doc){return doc.json()}, // (default)  - avoid using an arrow-function
   // should we return anything for this page?
-  doPage: (doc) => true, // (default)
+  doPage: function(doc){ return true}, // (default)
   // add plugins to wtf_wikipedia
   extend: (wtf) => {
     wtf.extend((models, templates, infoboxes) => {
