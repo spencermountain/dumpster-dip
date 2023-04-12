@@ -1,5 +1,6 @@
 import sundayDriver from 'sunday-driver'
 import parseXml from './02-xml.js'
+import {decode} from 'html-entities'
 
 const readWiki = function (opts, eachPage) {
   const { index, workers, file } = opts
@@ -15,6 +16,7 @@ const readWiki = function (opts, eachPage) {
     splitter: '</page>',
     each: (xml, resume) => {
       let meta = parseXml(xml);
+      meta.wiki = decode(meta.wiki);
       eachPage(meta)
       resume();
     }
