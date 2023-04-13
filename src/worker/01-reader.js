@@ -1,7 +1,7 @@
 import sundayDriver from 'sunday-driver'
 import parseXml from './02-xml.js'
 import {decode} from 'html-entities'
-import chalk from 'chalk';
+import {red} from "../_lib.js"
 
 const readWiki = function (opts, eachPage) {
   const { index, workers, file } = opts
@@ -16,20 +16,22 @@ const readWiki = function (opts, eachPage) {
     end: `${end}%`,
     splitter: '</page>',
     each: (xml, resume) => {
+      let pageTitle = "Unknown page"
       try {
         const meta = parseXml(xml);
+        pageTitle = meta.title
         // console.log("worker", opts.index, "processing", meta.title);
         meta.wiki = decode(meta.wiki);
         eachPage(meta)
       } catch(e) {
-        console.log(chalk.red(`Worker ${opts.index} encountered ${e} while processing ${meta.title}`));
+        console.log(red(`Worker ${opts.index} couldn't process ${pageTitle}: got error ${e}`));
       }
       resume();
     }
   };
   const p = sundayDriver(driver);
   p.catch(err => {
-    console.log(chalk.red('\n\n========== Worker error!  ====='));
+    console.log(red('\n\n========== Worker error!  ====='));
     console.log('🚨       worker #' + opts.index + '           🚨');
     console.log(err);
     console.log('\n\n');

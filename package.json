@@ -35,6 +35,5 @@
     "wtf_wikipedia": "10.0.0",
     "yargs": "17.4.1"
   },
-  "devDependencies": {},
   "license": "MIT"
 }
