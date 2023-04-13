@@ -36,6 +36,8 @@ class Pool extends EventEmitter {
           outputDir: this.opts.outputDir,
           outputMode: this.opts.outputMode,
           namespace: this.opts.namespace,
+          redirects: this.opts.redirects,
+          disambiguation: this.opts.disambiguation,
           workers: this.opts.workers,
           methods: this.methods,
         }
