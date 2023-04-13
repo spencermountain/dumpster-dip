@@ -17,7 +17,7 @@ const readWiki = function (opts, eachPage) {
     splitter: '</page>',
     each: (xml, resume) => {
       try {
-        let meta = parseXml(xml);
+        const meta = parseXml(xml);
         // console.log("worker", opts.index, "processing", meta.title);
         meta.wiki = decode(meta.wiki);
         eachPage(meta)
