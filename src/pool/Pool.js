@@ -75,7 +75,7 @@ class Pool extends EventEmitter {
       console.log(grey(row))
       let allDone = this.status.every(obj => obj.finished === true)
       if (allDone === true) {
-        console.log(`Final worker states: ${this.status}`);
+        console.log(`Final worker states: ${JSON.stringify(this.status)}`);
         this.stop()
       }
     }, 500);
