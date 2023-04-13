@@ -15,9 +15,14 @@ const readWiki = function (opts, eachPage) {
     end: `${end}%`,
     splitter: '</page>',
     each: (xml, resume) => {
-      let meta = parseXml(xml);
-      meta.wiki = decode(meta.wiki);
-      eachPage(meta)
+      try {
+        let meta = parseXml(xml);
+        // console.log("worker", opts.index, "processing", meta.title);
+        meta.wiki = decode(meta.wiki);
+        eachPage(meta)
+      } catch(e) {
+        console.log(chalk.red(`Worker ${opts.index} encountered ${e} while processing ${meta.title}`));
+      }
       resume();
     }
   };
