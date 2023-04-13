@@ -1,6 +1,7 @@
 import sundayDriver from 'sunday-driver'
 import parseXml from './02-xml.js'
 import {decode} from 'html-entities'
+import chalk from 'chalk';
 
 const readWiki = function (opts, eachPage) {
   const { index, workers, file } = opts
