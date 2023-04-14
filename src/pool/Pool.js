@@ -11,6 +11,7 @@ const dir = path.dirname(fileURLToPath(import.meta.url))
 class Pool extends EventEmitter {
   constructor(opts) {
     super(opts)
+    console.log(opts)
     checkFile(opts.input)
     this.opts = opts
     this.workers = []
@@ -36,6 +37,7 @@ class Pool extends EventEmitter {
           outputDir: this.opts.outputDir,
           outputMode: this.opts.outputMode,
           namespace: this.opts.namespace,
+          wtfPath: this.opts.wtfPath,
           workers: this.opts.workers,
           methods: this.methods,
         }
