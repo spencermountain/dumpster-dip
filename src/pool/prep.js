@@ -19,7 +19,7 @@ const checkFile = function (file) {
 const makeDir = function (name) {
   let dir = path.resolve(name)
   if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir);
+    fs.mkdirSync(dir, { recursive: true });
   }
 }
 export { checkFile, makeDir }
