@@ -73,7 +73,7 @@ class Pool extends EventEmitter {
   beat() {
     this.workers.forEach(w => w.postMessage('thump'))
     setTimeout(() => {
-      let row = this.status.map(o => o.written.toLocaleString().padStart('8')).join('   ')
+      let row = this.status.map(o => o.written !== undefined ? o.written.toLocaleString().padStart('8') : "???").join('   ')
       console.log(grey(row))
       let allDone = this.status.every(obj => obj.finished === true)
       if (allDone === true) {
