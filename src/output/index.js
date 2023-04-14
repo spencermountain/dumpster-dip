@@ -4,8 +4,6 @@ import encodeTitle from './encodeTitle.js'
 
 import path from 'path'
 
-const root = path.resolve()
-
 // recursively create any nested directories
 const writeFile = function (file, json) {
   fs.mkdirSync(path.dirname(file), { recursive: true })
@@ -19,7 +17,7 @@ const append = function (file, txt) {
 // modes:  nested | flat | ndjson
 const output = function (res, opts) {
   const { outputDir, outputMode } = opts
-  let dir = path.join(root, outputDir)
+  let dir = path.resolve(outputDir)
   if (outputMode === 'flat') {
     let title = encodeTitle(res.title)
     dir = path.join(dir, title + '.txt')
