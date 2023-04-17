@@ -1,13 +1,43 @@
-import sundayDriver from 'sunday-driver'
+import fs from 'fs'
 import parseXml from './02-xml.js'
+import readline from 'readline';
+import sundayDriver from 'sunday-driver'
 import {decode} from 'html-entities'
 import {red} from "../_lib.js"
+
+
+const dbNameRegex = /<dbname>(.+)wiki<\/dbname>/;
+
+async function findDbName(pathToFile) {
+  const readable = fs.createReadStream(pathToFile);
+  const reader = readline.createInterface({ input: readable });
+  const line = await new Promise((resolve, reject) => {
+    let i = 0;
+    reader.on('line', (line) => {
+      i++;
+      if (i > 50) {
+        reader.close();
+        reject("Didn't find dbname in first 3 lines");
+      }
+
+      const match = line.match(dbNameRegex)
+      if (match !== null) {
+        const dbName = match[1];
+        reader.close();
+        resolve(dbName);
+      }
+    });
+  });
+  readable.close();
+  return line;
+}
 
 const readWiki = function (opts, eachPage) {
   const { index, workers, file } = opts
   const percent = 100 / workers;
   const start = percent * index;
   const end = start + percent;
+  const language = findDbName(file);
 
   // console.log(`#${index}  - from ${start} to ${end}`)
   const driver = {
@@ -22,6 +52,7 @@ const readWiki = function (opts, eachPage) {
         pageTitle = meta.title
         // console.log("worker", opts.index, "processing", meta.title);
         meta.wiki = decode(meta.wiki);
+        meta.language = language;
         eachPage(meta)
       } catch(e) {
         console.log(red(`Worker ${opts.index} couldn't process ${pageTitle}: got error ${e}`));
