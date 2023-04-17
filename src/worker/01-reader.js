@@ -11,13 +11,14 @@ const dbNameRegex = /<dbname>(.+)wiki<\/dbname>/;
 async function findDbName(pathToFile) {
   const readable = fs.createReadStream(pathToFile);
   const reader = readline.createInterface({ input: readable });
+  const maxLinesToLookAt = 50;
   const line = await new Promise((resolve, reject) => {
     let i = 0;
     reader.on('line', (line) => {
       i++;
-      if (i > 50) {
+      if (i > maxLinesToLookAt) {
         reader.close();
-        reject("Didn't find dbname in first 3 lines");
+        reject(`Didn't find dbname in first ${maxLinesToLookAt} lines`);
       }
 
       const match = line.match(dbNameRegex)
