@@ -2,7 +2,6 @@
 import fs from 'fs'
 import { red, blue, grey } from '../_lib.js'
 import path from 'path'
-const root = path.resolve()
 
 const checkFile = function (file) {
   if (!file || !fs.existsSync(file)) {
@@ -18,9 +17,9 @@ const checkFile = function (file) {
 }
 
 const makeDir = function (name) {
-  let dir = path.isAbsolute(name) ? name : path.join(root, name)
+  let dir = path.resolve(name)
   if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir);
+    fs.mkdirSync(dir, { recursive: true });
   }
 }
 export { checkFile, makeDir }

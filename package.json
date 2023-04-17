@@ -1,6 +1,6 @@
 {
   "name": "dumpster-dip",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "parse a wikipedia dump into tiny files",
   "main": "./src/index.js",
   "type": "module",
@@ -32,8 +32,9 @@
   "dependencies": {
     "jsonfn": "0.31.0",
     "sunday-driver": "1.0.2",
-    "wtf_wikipedia": "10.1.4",
-    "yargs": "17.7.1"
+    "wtf_wikipedia": "^10.1.4",
+    "html-entities": "^2.3.3",
+    "yargs": "17.4.1"
   },
   "license": "MIT"
 }
