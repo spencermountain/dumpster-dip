@@ -19,7 +19,10 @@ const append = function (file, txt) {
 // modes:  nested | flat | ndjson
 const output = function (res, opts) {
   const { outputDir, outputMode } = opts
-  let dir = path.join(root, outputDir)
+  let dir = outputDir
+  if (!path.isAbsolute(dir)) {
+    dir = path.join(root, outputDir)
+  }
   if (outputMode === 'flat') {
     let title = encodeTitle(res.title)
     dir = path.join(dir, title + '.txt')

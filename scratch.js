@@ -5,25 +5,18 @@ const afwiki = `/Users/spencer/data/wikipedias/afwiki-latest-pages-articles.xml`
 const opts = {
   input: afwiki,
   // directory for all our new files
-  outputDir: './results', // (default)
+  outputDir: '/Users/spencer/Desktop/results', // (default)
   // how we should write the results
-  outputMode: 'nested', // (default)
+  // outputMode: 'nested', // (default)
   // which wikipedia namespaces to handle (null will do all)
-  namespace: 0, //(default article namespace)
+  // namespace: 0, //(default article namespace)
   // define how many concurrent workers to run
-  workers: 3, // default is cpu count
+  // workers: 3, // default is cpu count
   //interval to log status
-  heartbeat: 5000, //every 5 seconds
-
-  // what do return, for every page
-  parse: function (doc) {
-    return {
-      title: doc.title(),
-      // cats: doc.categories()
-    }
-  }, // (default)
+  // heartbeat: 5000, //every 5 seconds
   // should we return anything for this page?
   doPage: function () { return true }, // (default)
+
   // add plugins to wtf_wikipedia
   // extend: (wtf) => {
   //   wtf.extend((models) => {
@@ -32,6 +25,15 @@ const opts = {
   //     }
   //   })
   // },
+
+  // what do return, for every page
+  parse: function (doc) {
+    return {
+      title: doc.title(),
+      cats: doc.categories()
+    }
+  },
+
 }
 
 dip(opts).then(() => {
