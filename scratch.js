@@ -6,6 +6,8 @@ const opts = {
   input: afwiki,
   // directory for all our new files
   outputDir: '/Users/spencer/Desktop/results', // (default)
+  // 
+  libPath: '/Users/spencer/mountain/wtf_wikipedia/scratch.js',
   // how we should write the results
   // outputMode: 'nested', // (default)
   // which wikipedia namespaces to handle (null will do all)

@@ -141,6 +141,7 @@ let opts = {
   // how we should write the results
   outputMode: 'nested', // (default)
 
+
   // which wikipedia namespaces to handle (null will do all)
   namespace: 0, //(default article namespace)
   // define how many concurrent workers to run
@@ -153,18 +154,15 @@ let opts = {
   // parse disambiguation pages, too
   disambiguation: true, // (default)
 
+  // allow a custom wtf_wikipedia parsing library
+  libPath: 'wtf_wikipedia', // (default)
+
+  // should we skip this page or return something?
+  doPage: function(doc){ return true}, // (default)
+
   // what do return, for every page
   parse: function(doc){return doc.json()}, // (default)  - avoid using an arrow-function
-  // should we return anything for this page?
-  doPage: function(doc){ return true}, // (default)
-  // add plugins to wtf_wikipedia
-  extend: (wtf) => {
-    wtf.extend((models, templates, infoboxes) => {
-      models.Doc.prototype.isPerson = function () {
-        return this.categories().find((cat) => cat.match(/people/))
-      }
-    })
-  },
+
 }
 ```
 
@@ -176,6 +174,44 @@ let opts = {
 <!-- spacer -->
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-<div><i>work in progress</i></div>
+
+---
+
+### Customization
+Given the `parse` callback, you're free to return anything you'd like. Sometimes though, you may want to parse a page with a custom version of `wtf_wikipedia` parser - if you need any extra plugins or functionality.
+
+Here we apply a [custom plugin](https://observablehq.com/@spencermountain/wtf-wikipedia-plugins) to our wtf lib, and pass it in to be available each worker:
+
+in `./myLib.js`
+```js
+import wtf from 'wtf_wikipedia'
+
+// add custom analysis as a plugin
+wtf.extend((models, templates)=>{
+  // add a new method
+  models.Doc.prototype.firstSentence = function(){
+    return this.sentences()[0].text()
+  }
+  // support a missing plugin   
+  templates.pingponggame = function(tmpl, list){
+    let arr = tmpl.split('|')
+    return arr[1] + ' to '+ arr[2]
+  }
+})
+export default wtf
+```
+
+then we can pass this version into dumpster-dip:
+```js
+import dip from 'dumpster-dip'
+
+dip({
+  input: '/path/to/dump.xml',
+  libPath:'./myLib.js', // our version
+  parse: function(doc) {
+    return doc.firstSentence() // use custom method
+  }
+})
+```
 
 MIT

@@ -1,12 +1,15 @@
 import { workerData, parentPort } from 'worker_threads'
 import { JSONfn } from 'jsonfn'
-import wtf from 'wtf_wikipedia'
+// import wtf from 'wtf_wikipedia'
 import reader from './01-reader.js'
 import { magenta } from '../_lib.js'
 import output from '../output/index.js'
 
-let { input, outputDir, outputMode, index, workers, namespace, redirects, disambiguation } = workerData
+let { input, outputDir, outputMode, index, workers, namespace, redirects, disambiguation, libPath } = workerData
 let methods = JSONfn.parse(workerData.methods)
+
+const lib = await import(libPath || 'wtf_wikipedia')
+const wtf = lib.default
 methods.extend(wtf)
 
 let status = {
