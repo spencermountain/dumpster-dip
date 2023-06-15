@@ -7,7 +7,9 @@ const opts = {
   // directory for all our new files
   outputDir: '/Users/spencer/Desktop/results', // (default)
   // 
-  libPath: '/Users/spencer/mountain/wtf_wikipedia/scratch.js',
+  // libPath: '/Users/spencer/mountain/wtf_wikipedia/scratch.js',
+
+  libPath: './myLib.js', // our version
   // how we should write the results
   // outputMode: 'nested', // (default)
   // which wikipedia namespaces to handle (null will do all)
@@ -32,7 +34,7 @@ const opts = {
   parse: function (doc) {
     return {
       title: doc.title(),
-      cats: doc.categories()
+      sentence: doc.firstSentence()
     }
   },
 
