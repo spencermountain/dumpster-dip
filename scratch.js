@@ -12,6 +12,7 @@ const opts = {
   libPath: './myLib.js', // our version
   // how we should write the results
   // outputMode: 'nested', // (default)
+  outputMode: 'encyclopedia-two', // (default)
   // which wikipedia namespaces to handle (null will do all)
   // namespace: 0, //(default article namespace)
   // define how many concurrent workers to run

@@ -35,6 +35,16 @@ const output = function (res, opts) {
     let title = encodeTitle(res.title)
     dir = path.join(dir, title + '.txt')
     writeFile(dir, res.body)
+  } else if (outputMode === 'encyclopedia') {
+    let title = encodeTitle(res.title)
+    let c = title.substring(0, 1).toLowerCase() || '-'
+    dir = path.join(dir, c, title + '.txt')
+    writeFile(dir, res.body)
+  } else if (outputMode === 'encyclopedia-two') {
+    let title = encodeTitle(res.title)
+    let c = title.substring(0, 2).toLowerCase() || '--'
+    dir = path.join(dir, c, title + '.txt')
+    writeFile(dir, res.body)
   } else if (outputMode === 'ndjson') {
     dir = path.join(dir, './index.ndjson')
     append(dir, JSON.stringify(res.body) + '\n')

@@ -111,6 +111,17 @@ let file = getPath('Dennis Rodman')
 This is the same scheme that wikipedia does internally.
 
 
+to put files in folders indexed by their first letter, do:
+```js
+let opts = {
+  outputDir: './results', 
+  outputMode: 'encyclopedia', 
+}
+```
+this is less ideal, because some directories become way larger than others. Also remember that titles are UTF-8.
+
+For two-letter folders, use `outputMode: 'encyclopedia-two'`
+
 ##### Flat results:
 
 if you want all files in one flat directory, you can do:
