@@ -40,7 +40,7 @@ const opts = {
 
 }
 
-dip(opts).then(() => {
+await dip(opts).then(() => {
   console.log('done')
 })
 
