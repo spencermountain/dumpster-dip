@@ -52,11 +52,16 @@ const eachPage = function (meta) {
     return null
   }
   // actually process the page
-  let res = methods.parse(doc)
-  if (res) {
+  let body = methods.parse(doc)
+  if (body) {
     status.written += 1
-    // console.log(res)
-    output(res, { outputDir, outputMode })
+    const result = {
+      title: meta.title || doc.title(),
+      id: meta.pageID,
+      ns: meta.namespace,
+      body
+    }
+    output(result, { outputDir, outputMode })
   }
 }
 
