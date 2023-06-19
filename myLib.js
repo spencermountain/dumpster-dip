@@ -1,5 +1,6 @@
 import wtf from 'wtf_wikipedia'
 
+
 // add custom analysis as a plugin
 wtf.extend((models, templates) => {
   // add a new method

@@ -6,3 +6,5 @@
 - **[new]** - support non-json result formats from `.parse()`
 ### 0.1.2
 - **[new]** - add 'encyclopedia` and 'encyclopedia-two` output formats
+### 0.1.3
+- **[fix]** - encode xml in wikitext properly

@@ -22,21 +22,9 @@ const opts = {
   // should we return anything for this page?
   doPage: function () { return true }, // (default)
 
-  // add plugins to wtf_wikipedia
-  // extend: (wtf) => {
-  //   wtf.extend((models) => {
-  //     models.Doc.prototype.isPerson = function () {
-  //       return this.categories().find((cat) => cat.match(/people/))
-  //     }
-  //   })
-  // },
-
   // what do return, for every page
   parse: function (doc) {
-    return {
-      title: doc.title(),
-      sentence: doc.firstSentence()
-    }
+    return doc.text()
   },
 
 }
