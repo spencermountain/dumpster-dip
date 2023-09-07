@@ -1,21 +1,16 @@
 import { workerData, parentPort } from 'worker_threads'
 import { JSONfn } from 'jsonfn'
-import wtfLib from 'wtf_wikipedia'
+// import wtfLib from 'wtf_wikipedia'
 import reader from './01-reader.js'
 import { magenta } from '../_lib.js'
 import output from '../output/index.js'
 
-// use default wtf library
-let wtf = wtfLib
-
-let { input, outputDir, outputMode, index, workers, namespace, redirects, disambiguation } = workerData
+let { input, outputDir, outputMode, index, workers, namespace, redirects, disambiguation, libPath } = workerData
 let methods = JSONfn.parse(workerData.methods)
-// methods.extend(wtf)
 
-// shim-in a new wtf lib
-if (workerData.wtfPath) {
-  import(workerData.wtfPath).then(obj => wtf = obj.default).catch(err => console.log(err))
-}
+const lib = await import(libPath || 'wtf_wikipedia')
+const wtf = lib.default
+methods.extend(wtf)
 
 let status = {
   index,
@@ -57,12 +52,17 @@ const eachPage = function (meta) {
     return null
   }
   // actually process the page
-  let res = methods.parse(doc)
-  let title = doc.title()
-  if (res) {
+
+  let body = methods.parse(doc)
+  if (body) {
     status.written += 1
-    // console.log(res)
-    output(res, title, { outputDir, outputMode })
+    const result = {
+      title: meta.title || doc.title(),
+      id: meta.pageID,
+      ns: meta.namespace,
+      body
+    }
+    output(result, { outputDir, outputMode })
   }
 }
 

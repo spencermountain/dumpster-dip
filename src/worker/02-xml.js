@@ -3,6 +3,16 @@ const getId = /<id>([0-9]*?)<\/id>/
 const getNS = /<ns>([0-9]*?)<\/ns>/
 const getText = /<text[^>]+xml:space="preserve"([\s\S]*?)<\/text>/
 
+//doesn't support fancy things like &copy; to ©, etc
+const escapeXML = function (str) {
+  return str
+    .replace(/&apos;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&gt;/g, '>')
+    .replace(/&lt;/g, '<')
+    .replace(/&amp;/g, '&');
+};
+
 // parse xml with regexes (╯°□°）╯︵ ┻━┻
 const parseXML = function (xml) {
   const page = {}
@@ -25,7 +35,7 @@ const parseXML = function (xml) {
   m = xml.match(getText)
   if (m !== null) {
     m[1] = m[1].replace(/^.*?>/, '')
-    page.wiki = m[1]
+    page.wiki = escapeXML(m[1])
   }
   return page
 }

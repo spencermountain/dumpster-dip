@@ -6,8 +6,12 @@ const encodeTitle = function (title) {
   title = title.charAt(0).toUpperCase() + title.substring(1)
   //spaces to underscores
   title = title.replace(/ /g, '_')
-  // escape slashes
-  title = title.replace(/\//g, '\\/')
+  // escape slashes, or possible absolute paths
+  title = encodeURIComponent(title)
+  // clobber any potential dot files, or relative paths
+  title = title.replace(/^\./g, '\\./')
   return title
 }
 export default encodeTitle
+
+console.log(encodeTitle('.foo bar'))

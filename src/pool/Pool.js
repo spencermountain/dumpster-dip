@@ -35,6 +35,7 @@ class Pool extends EventEmitter {
           index: i,
           input: this.opts.input,
           outputDir: this.opts.outputDir,
+          libPath: this.opts.libPath,
           outputMode: this.opts.outputMode,
           namespace: this.opts.namespace,
           redirects: this.opts.redirects,
