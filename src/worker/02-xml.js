@@ -40,7 +40,6 @@ const parseXML = function (xml) {
   }
   //get revision id
   m = xml.match(getRevisionId)
-  console.log(m)
   if (m !== null) {
     page.revisionID = m[1]
   }
