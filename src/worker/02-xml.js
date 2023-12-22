@@ -3,7 +3,7 @@ const getId = /<id>([0-9]*?)<\/id>/
 const getNS = /<ns>([0-9]*?)<\/ns>/
 const getText = /<text[^>]+xml:space="preserve"([\s\S]*?)<\/text>/
 const getRevisionId = /<revision>[\s\S]*?<id>(\d+)<\/id>/
-const getTimestamp = /<revision>[\s\S]*?<timestamp>(\d+)<\/timestamp>/
+const getTimestamp = /<revision>[\s\S]*?<timestamp>([0-9TZ:.-]+)<\/timestamp>/
 
 //doesn't support fancy things like &copy; to ©, etc
 const escapeXML = function (str) {

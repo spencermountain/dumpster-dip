@@ -68,6 +68,9 @@ const eachPage = function (meta) {
     const result = {
       title: meta.title || doc.title(),
       id: meta.pageID,
+      revisionID: meta.revisionID,
+      timestamp: meta.timestamp,
+      lang: meta.lang,
       ns: meta.namespace,
       body
     }
