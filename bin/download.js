@@ -1,7 +1,7 @@
 import prompt from 'prompt'
 import optimist from 'optimist'
-import dlWiki from './01-wiki.js'
-import dlPageviews from './02-pageviews.js'
+import dlWiki from './dump-dl.js'
+import dlPageviews from './pageviews-dl.js'
 const dir = './'
 
 var schema = {
@@ -16,6 +16,12 @@ var schema = {
     pageviews: {
       description: 'Do you also want to download pageviews data? y/n',
       message: 'To include pageview data, type y',
+      validator: /y[es]*|n[o]?/,
+      default: 'n'
+    },
+    output: {
+      description: 'What format do you want the results to be?',
+      message: '',
       validator: /y[es]*|n[o]?/,
       default: 'n'
     }
