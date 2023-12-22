@@ -28,4 +28,3 @@ const getParams = async function () {
 
 let options = await getParams()
 // console.log(options)
-console.log('=-=-=-= here -=-=-=-')

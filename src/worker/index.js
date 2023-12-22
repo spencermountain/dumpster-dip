@@ -5,12 +5,21 @@ import reader from './01-reader.js'
 import { magenta } from '../_lib.js'
 import output from '../output/index.js'
 
-let { input, outputDir, outputMode, index, workers, namespace, redirects, disambiguation, libPath } = workerData
+let {
+  input,
+  outputDir,
+  outputMode,
+  index,
+  workers,
+  namespace,
+  redirects,
+  disambiguation,
+  libPath
+} = workerData
 let methods = JSONfn.parse(workerData.methods)
 
 const lib = await import(libPath || 'wtf_wikipedia')
 const wtf = lib.default
-methods.extend(wtf)
 
 let status = {
   index,
@@ -22,7 +31,7 @@ let status = {
   disambiguation: 0,
 
   skipped: 0,
-  written: 0,
+  written: 0
 }
 
 const eachPage = function (meta) {
@@ -62,18 +71,17 @@ const eachPage = function (meta) {
       ns: meta.namespace,
       body
     }
-    output(result, { outputDir, outputMode })
+    output(result, meta.title, { outputDir, outputMode })
   }
 }
 
 setTimeout(() => {
-
   // start off the worker!
   reader({ index, workers, file: input }, eachPage).then((doc) => {
     console.log(magenta(`worker #${index} finished`))
     status.finished = true
   })
-}, 2000);
+}, 2000)
 
 // log the status of this worker, when asked
 parentPort.on('message', () => parentPort.postMessage({ status }))

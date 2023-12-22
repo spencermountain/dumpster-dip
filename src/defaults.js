@@ -16,19 +16,12 @@ export default {
   heartbeat: 5000, //every 5 seconds
   // allow custom wtf library
   libPath: 'wtf_wikipedia',
+  // should we return anything for this page?
+  doPage: function () {
+    return true
+  },
   // what do return, for every page
   parse: function (doc) {
-    console.log('cool', doc)
-  }, // (default)
-  // should we return anything for this page?
-  doPage: function () { return true }, // (default)
-  // add plugins to wtf_wikipedia
-  extend: function (wtf) {
-    wtf.extend((models) => {
-      models.Doc.prototype.isPerson = function () {
-        return this.categories().find((cat) => cat.match(/people/))
-      }
-    })
+    return doc.json()
   }
-
 }

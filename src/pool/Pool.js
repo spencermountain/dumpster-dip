@@ -11,7 +11,6 @@ const dir = path.dirname(fileURLToPath(import.meta.url))
 class Pool extends EventEmitter {
   constructor(opts) {
     super(opts)
-    console.log(opts)
     checkFile(opts.input)
     this.opts = opts
     this.workers = []
@@ -25,7 +24,7 @@ class Pool extends EventEmitter {
   // kick off each worker, on a part of the file
   start() {
     let bytes = fs.statSync(this.opts.input)['size']
-    const mb = Math.round(bytes / 1048576) + 'mb';
+    const mb = Math.round(bytes / 1048576) + 'mb'
     console.log(`\n\nstarting ${blue(this.opts.workers)} workers on the ${yellow(mb)} file`)
 
     for (let i = 0; i < this.opts.workers; i += 1) {
@@ -42,7 +41,7 @@ class Pool extends EventEmitter {
           disambiguation: this.opts.disambiguation,
           wtfPath: this.opts.wtfPath,
           workers: this.opts.workers,
-          methods: this.methods,
+          methods: this.methods
         }
       }
       const file = path.join(dir, '../worker/index.js')
@@ -65,8 +64,8 @@ class Pool extends EventEmitter {
     clearInterval(this.heartbeat)
     // this.workers.forEach(w => w.emit('exit'))
     // this.emit('exit');
-    this.emit('end');
-    this.removeAllListeners();
+    this.emit('end')
+    this.removeAllListeners()
     setTimeout(() => {
       // todo: figure out how to exit naturally
       process.exit()
@@ -74,16 +73,18 @@ class Pool extends EventEmitter {
   }
   // heartbeat status logger
   beat() {
-    this.workers.forEach(w => w.postMessage('thump'))
+    this.workers.forEach((w) => w.postMessage('thump'))
     setTimeout(() => {
-      let row = this.status.map(o => o.written !== undefined ? o.written.toLocaleString().padStart('8') : "???").join('   ')
+      let row = this.status
+        .map((o) => (o.written !== undefined ? o.written.toLocaleString().padStart('8') : '???'))
+        .join('   ')
       console.log(grey(row))
-      let allDone = this.status.every(obj => obj.finished === true)
+      let allDone = this.status.every((obj) => obj.finished === true)
       if (allDone === true) {
-        console.log(`Final worker states: ${JSON.stringify(this.status)}`);
+        console.log(`Final worker states: ${JSON.stringify(this.status)}`)
         this.stop()
       }
-    }, 500);
+    }, 500)
   }
 }
 

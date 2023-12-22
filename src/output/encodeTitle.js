@@ -17,5 +17,3 @@ const encodeTitle = function (title) {
   return title
 }
 export default encodeTitle
-
-console.log(encodeTitle('.foo bar'))
