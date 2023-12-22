@@ -21,9 +21,8 @@ var schema = {
     },
     output: {
       description: 'What format do you want the results to be?',
-      message: '',
-      validator: /y[es]*|n[o]?/,
-      default: 'n'
+      message: 'hash, flat, encyclopedia, enclyclopedia-two, or ndjson',
+      default: 'hash'
     }
   }
 }

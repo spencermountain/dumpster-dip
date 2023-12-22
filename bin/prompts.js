@@ -4,7 +4,7 @@ console.log('\n\nWelcome to the dumpster-dip CLI\n')
 
 const whichLang = async function () {
   console.log('\n\n')
-  return inquirer.prompt([
+  return await inquirer.prompt([
     {
       type: 'input',
       name: 'lang',
@@ -19,7 +19,7 @@ const whichLang = async function () {
 
 const addPageviews = async function () {
   console.log('\n\n')
-  return inquirer.prompt([
+  return await inquirer.prompt([
     {
       type: 'confirm',
       name: 'addPageviews',
@@ -32,7 +32,7 @@ const addPageviews = async function () {
 
 const whichFormat = async function () {
   console.log('\n\n')
-  return inquirer.prompt([
+  return await inquirer.prompt([
     {
       type: 'list',
       name: 'size',
