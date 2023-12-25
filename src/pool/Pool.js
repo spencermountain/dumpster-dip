@@ -65,6 +65,7 @@ class Pool extends EventEmitter {
     // this.workers.forEach(w => w.emit('exit'))
     // this.emit('exit');
     this.emit('end')
+    console.log(JSON.stringify(this.status, null, 2))
     this.removeAllListeners()
     setTimeout(() => {
       // todo: figure out how to exit naturally

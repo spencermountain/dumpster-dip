@@ -83,6 +83,7 @@ setTimeout(() => {
   reader({ index, workers, file: input }, eachPage).then((doc) => {
     console.log(magenta(`worker #${index} finished`))
     status.finished = true
+    console.log(status)
   })
 }, 2000)
 
