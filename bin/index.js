@@ -1,3 +1,4 @@
+#!/usr/bin/node
 import prompt from 'prompt'
 import optimist from 'optimist'
 import dlWiki from './download/dump-dl.js'
