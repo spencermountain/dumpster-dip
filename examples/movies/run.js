@@ -3,17 +3,20 @@ import dip from 'dumpster-dip'
 const dump = `../enwiki-latest-pages-articles.xml`
 const opts = {
   input: dump,
-  libPath: './lib.js', //load our plugins
-  outputMode: 'ndjson', //results in one file
+  outputMode: 'encyclopedia',
   doPage: function (doc) {
-    return doc.classify().type === 'Person/Creator/Actor' //only emit actors
+    // look for anything with a 'Film' 'infobox
+    return doc.infobox() && doc.infobox().type() === 'film'
   },
   parse: function (doc) {
-    return [
-      doc.title(),
-      doc.birthDate(), //from person plugin
-      doc.summary() // first sentence clause
-    ]
+    let inf = doc.infobox()
+    // pluck some values from its infobox
+    return {
+      title: doc.title(),
+      runtime: inf.get('runtime'),
+      budget: inf.get('budget'),
+      gross: inf.get('gross')
+    }
   }
 }
 
