@@ -3,7 +3,7 @@ import dip from 'dumpster-dip'
 const dump = `../enwiki-latest-pages-articles.xml`
 const opts = {
   input: dump,
-  outputMode: 'encyclopedia',
+  outputMode: 'encyclopedia', // all 'E' movies under the ./e/ directory...
   doPage: function (doc) {
     // look for anything with a 'Film' 'infobox
     return doc.infobox() && doc.infobox().type() === 'film'
