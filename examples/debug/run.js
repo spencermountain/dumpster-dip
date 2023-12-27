@@ -4,7 +4,7 @@ const dump = `../enwiki-latest-pages-articles.xml`
 
 const opts = {
   input: dump,
-  libPath: './lib.js', // load our plugins
+  libPath: './_lib.js', // load our plugins
   outputMode: 'ndjson', //append one file as output
   doPage: function (doc) {
     return doc.isBad() //skip the good ones

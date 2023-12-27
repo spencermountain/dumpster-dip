@@ -11,6 +11,7 @@ const dip = function (opts) {
   if (opts && opts.libPath && isPath.test(opts.libPath)) {
     opts.libPath = path.join(dir, opts.libPath)
   }
+  console.log(opts.libPath)
   opts = Object.assign({}, defaults, opts)
   return new Promise((resolve, reject) => {
     let pool = new Pool(opts)
