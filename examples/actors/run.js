@@ -3,7 +3,7 @@ import dip from 'dumpster-dip'
 const dump = `../enwiki-latest-pages-articles.xml`
 const opts = {
   input: dump,
-  libPath: './_lib.js', //load our plugins
+  libPath: './examples/actors/_lib.js', //load our plugins
   outputMode: 'ndjson', //results in one file
   doPage: function (doc) {
     return doc.classify().type === 'Person/Creator/Actor' //only emit actors

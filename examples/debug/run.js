@@ -1,10 +1,10 @@
 import dip from 'dumpster-dip'
 
-const dump = `../enwiki-latest-pages-articles.xml`
+const dump = `./afwiki-latest-pages-articles.xml`
 
 const opts = {
   input: dump,
-  libPath: './_lib.js', // load our plugins
+  libPath: './examples/debug/_lib.js', // load our plugins
   outputMode: 'ndjson', //append one file as output
   doPage: function (doc) {
     return doc.isBad() //skip the good ones

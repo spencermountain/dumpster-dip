@@ -1,6 +1,6 @@
 import dip from 'dumpster-dip'
 
-const dump = `../enwiki-latest-pages-articles.xml`
+const dump = `./enwiki-latest-pages-articles.xml`
 const opts = {
   input: dump,
   outputMode: 'encyclopedia', // all 'E' movies under the ./e/ directory...
