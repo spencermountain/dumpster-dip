@@ -27,7 +27,7 @@ const calc = function (arr) {
 
 const percent = (sum, total) => {
   let p = parseInt((sum / total) * 100, 10)
-  return dim(p + '%')
+  return grey(' (' + p + '%)')
 }
 const num = (n) => {
   return n.toLocaleString().padStart(8)
@@ -37,13 +37,13 @@ const round = (n) => Math.round(n * 10) / 10
 const getSummary = function (arr) {
   let res = calc(arr)
   let all = res.processed
-  let msg = `\n\n\n${grey('-----')}\n`
+  let msg = `\n\n\n${dim('-----------')}\n`
   msg += '\nProcessed:'.padEnd(16) + magenta(num(all)) + ' pages'
   msg += '\nWrote:'.padEnd(16) + green(num(res.written)) + ' ' + percent(res.written, all)
   msg += '\nSkipped:'.padEnd(16) + cyan(num(res.skipped)) + ' ' + percent(res.skipped, all)
   msg += '\n      by namespace:'.padEnd(20) + cyan(num(res.skipped_namespace))
   msg += '\n      redirects:'.padEnd(20) + cyan(num(res.skipped_redirect))
-  msg += '\n      disambigs:'.padEnd(20) + cyan(num(res.skipped_disambig))
+  msg += '\n      disambiguations:'.padEnd(20) + cyan(num(res.skipped_disambig))
   msg += '\n      empty:'.padEnd(20) + cyan(num(res.skipped_empty))
 
   let diff = Date.now() - arr[0].started_at
