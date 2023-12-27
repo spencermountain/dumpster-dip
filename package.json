@@ -5,12 +5,13 @@
   "main": "./src/index.js",
   "type": "module",
   "scripts": {
-    "clean": "rm -rf ./results && mkdir ./results",
-    "stat": "find results -type f | wc -l",
-    "dl": "node ./bin/download.js",
+    "clean": "rm -rf ./dip && mkdir ./dip",
+    "stat": "find dip -type f | wc -l",
     "watch": "node ./scratch.js"
   },
-  "bin": "./index.js",
+  "bin": {
+    "dumpster-dip": "./bin/dumpster-dip.js"
+  },
   "exports": {
     ".": {
       "import": "./src/index.js"

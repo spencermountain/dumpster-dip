@@ -1,4 +1,4 @@
-#!/usr/bin/node
+#!/usr/bin/env node
 import prompt from 'prompt'
 import optimist from 'optimist'
 import dlWiki from './download/dump-dl.js'
@@ -53,7 +53,7 @@ if (fs.existsSync(file) === false) {
   await dlWiki(status.lang, dir)
 }
 
-console.log('\n\nStarting to process wikipedia:\n')
+console.log('\n\nBeginning to process wikipedia dump:\n')
 await dumpster({
   input: file,
   outputMode: status.output,

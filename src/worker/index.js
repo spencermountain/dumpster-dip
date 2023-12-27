@@ -24,6 +24,7 @@ const wtf = lib.default
 let status = {
   index,
   finished: false,
+  started_at: Date.now(),
   processed: 0,
 
   skipped_namespace: 0,

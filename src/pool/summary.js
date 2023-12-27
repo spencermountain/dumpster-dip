@@ -27,7 +27,7 @@ const calc = function (arr) {
 
 const percent = (sum, total) => {
   let p = parseInt((sum / total) * 100, 10)
-  return p + '%'
+  return grey(p + '%')
 }
 const num = (n) => {
   return n.toLocaleString().padStart(8)
@@ -35,19 +35,19 @@ const num = (n) => {
 
 const getSummary = function (arr) {
   let res = calc(arr)
+  let all = res.processed
   let msg = `\n\n\n${grey('-----')}\n`
-  msg += 'Processed:'.padEnd(20) + magenta(num(res.processed) + ' pages')
-  msg +=
-    'Wrote:'.padEnd(20) +
-    green(num(res.written) + ' pages ') +
-    grey(percent(res.written, res.processed))
-  msg +=
-    'Skipped:'.padEnd(20) +
-    cyan(num(res.skipped) + ' pages') +
-    grey(percent(res.skipped, res.processed))
-  msg += '      by namespace:'.padEnd(20) + cyan(num(res.skipped_namespace))
-  msg += '      redirects:'.padEnd(20) + cyan(num(res.skipped_redirect))
-  msg += '      disambigs:'.padEnd(20) + cyan(num(res.skipped_disambig))
-  msg += '      empty:'.padEnd(20) + cyan(num(res.skipped_empty))
+  msg += 'Processed:'.padEnd(20) + magenta(num(all)) + ' pages'
+  msg += '\nWrote:'.padEnd(20) + green(num(res.written)) + ' pages ' + percent(res.written, all)
+  msg += '\nSkipped:'.padEnd(20) + cyan(num(res.skipped)) + ' pages' + percent(res.skipped, all)
+  msg += '\n      by namespace:'.padEnd(20) + cyan(num(res.skipped_namespace))
+  msg += '\n      redirects:'.padEnd(20) + cyan(num(res.skipped_redirect))
+  msg += '\n      disambigs:'.padEnd(20) + cyan(num(res.skipped_disambig))
+  msg += '\n      empty:'.padEnd(20) + cyan(num(res.skipped_empty))
+
+  let diff = Date.now() - arr[0].started_at
+  let mins = diff / 1000 / 60 / 60
+  msg += '\n\n ' + grey('took ' + mins + ' mins')
+  console.log(msg)
 }
 export default getSummary
