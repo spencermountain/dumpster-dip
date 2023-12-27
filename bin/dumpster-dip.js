@@ -32,6 +32,7 @@ var schema = {
   }
 }
 
+console.log('\n\n\n')
 prompt.start()
 prompt.override = optimist.argv
 

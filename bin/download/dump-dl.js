@@ -5,13 +5,13 @@ import wget from './_wget.js'
 
 const download = async function (lang, dir) {
   let file = path.join(dir, `./${lang}wiki-latest-pages-articles.xml.bz2`)
-  console.log('\n\ndownloading:')
+  console.log('\n\nDownloading dump:')
   let url = `https://dumps.wikimedia.org/${lang}wiki/latest/${lang}wiki-latest-pages-articles.xml.bz2`
   sh.cd(dir) //.exec(cmd)
   await wget(url, dir)
-  console.log('\n\nunzipping:')
+  console.log('\n\nUnzipping file:')
   sh.cd(dir).exec(`bzip2 -d ${file}`)
-  console.log('\n\nprocessing:')
+  console.log('✅')
 }
 // const download = function (lang, dir) {
 //   let file = path.join(dir, `./${lang}wiki-latest-pages-articles.xml.bz2`)

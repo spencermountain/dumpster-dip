@@ -1,21 +1,21 @@
 /* eslint-disable no-console */
 import fetch from 'node-fetch'
 import fs from 'fs'
+import path from 'path'
 
 function print(txt) {
-  console.log(txt)
-  // process.stdout.clearLine()
-  // process.stdout.cursorTo(0)
-  // process.stdout.write(txt)
+  // console.log(txt)
+  process.stdout.clearLine()
+  process.stdout.cursorTo(0)
+  process.stdout.write(txt)
 }
 
-const wget = async function (url, path) {
-  if (!path) {
-    let parts = new URL(url).pathname.split(/\//)
-    path = parts[parts.length - 1]
-  }
+const wget = async function (url, dir) {
+  let parts = new URL(url).pathname.split(/\//)
+  let filename = parts[parts.length - 1]
+  let file = path.join(dir, filename)
   const res = await fetch(url)
-  const fileStream = fs.createWriteStream(path)
+  const fileStream = fs.createWriteStream(file)
   await new Promise((resolve, reject) => {
     let done = 0
     let total = Number(res.headers.get('content-length'))
@@ -23,11 +23,13 @@ const wget = async function (url, path) {
     let timer = setInterval(() => print(Math.floor((done / total) * 100) + '%'), 1000)
     res.body.on('data', (chunk) => (done += chunk.length))
     res.body.on('error', (error) => {
+      print('')
       clearInterval(timer)
       console.log(error)
       reject()
     })
     fileStream.on('finish', () => {
+      print('')
       clearInterval(timer)
       resolve()
     })

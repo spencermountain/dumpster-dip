@@ -52,7 +52,9 @@ const readWiki = function (opts, eachPage) {
           meta.language = language
           eachPage(meta)
         } catch (e) {
-          console.log(red(`Worker ${opts.index} couldn't process ${pageTitle}: got error ${e}`))
+          console.log(
+            red(`\nWorker ${opts.index} couldn't process '${pageTitle}':\n got error ${e}`)
+          )
         }
         resume()
       }
