@@ -1,5 +1,7 @@
+import { green, red, blue, magenta, cyan, grey, yellow, black, dim } from '../_lib.js'
+
 // calculate sums from each worker
-const getSummary = function (arr) {
+const calc = function (arr) {
   let sums = {
     processed: 0,
     skipped: 0,
@@ -21,5 +23,31 @@ const getSummary = function (arr) {
   sums.skipped = sums.skipped_namespace + sums.skipped_redirect
   sums.skipped = sums.skipped_disambig + sums.skipped_empty
   return sums
+}
+
+const percent = (sum, total) => {
+  let p = parseInt((sum / total) * 100, 10)
+  return p + '%'
+}
+const num = (n) => {
+  return n.toLocaleString().padStart(8)
+}
+
+const getSummary = function (arr) {
+  let res = calc(arr)
+  let msg = `\n\n\n${grey('-----')}\n`
+  msg += 'Processed:'.padEnd(20) + magenta(num(res.processed) + ' pages')
+  msg +=
+    'Wrote:'.padEnd(20) +
+    green(num(res.written) + ' pages ') +
+    grey(percent(res.written, res.processed))
+  msg +=
+    'Skipped:'.padEnd(20) +
+    cyan(num(res.skipped) + ' pages') +
+    grey(percent(res.skipped, res.processed))
+  msg += '      by namespace:'.padEnd(20) + cyan(num(res.skipped_namespace))
+  msg += '      redirects:'.padEnd(20) + cyan(num(res.skipped_redirect))
+  msg += '      disambigs:'.padEnd(20) + cyan(num(res.skipped_disambig))
+  msg += '      empty:'.padEnd(20) + cyan(num(res.skipped_empty))
 }
 export default getSummary
