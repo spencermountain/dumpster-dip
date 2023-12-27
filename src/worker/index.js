@@ -24,40 +24,37 @@ const wtf = lib.default
 let status = {
   index,
   finished: false,
-  pages: 0,
+  processed: 0,
 
-  wrong_namespace: 0,
-  redirects: 0,
-  disambiguation: 0,
+  skipped_namespace: 0,
+  skipped_redirect: 0,
+  skipped_disambig: 0,
+  skipped_empty: 0,
 
-  skipped: 0,
   written: 0
 }
 
 const eachPage = function (meta) {
-  status.pages += 1
+  status.processed += 1
   // only process pages in a given namespace
   if (meta.namespace !== namespace && namespace !== null) {
-    status.wrong_namespace += 1
-    status.skipped += 1
+    status.skipped_namespace += 1
     return null
   }
   // parse the wikitext
   let doc = wtf(meta.wiki, meta)
   // skip redirect pages
   if (redirects === false && doc.isRedirect()) {
-    status.redirects += 1
-    status.skipped += 1
+    status.skipped_redirect += 1
     return null
   }
   // skip disambiguation pages
   if (disambiguation === false && doc.isDisambig()) {
-    status.disambiguation += 1
-    status.skipped += 1
+    status.skipped_disambig += 1
     return null
   }
   if (!methods.doPage(doc)) {
-    status.skipped += 1
+    status.skipped_empty += 1
     return null
   }
   // actually process the page

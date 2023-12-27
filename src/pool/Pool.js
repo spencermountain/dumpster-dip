@@ -5,6 +5,7 @@ import { Worker } from 'worker_threads'
 import { fileURLToPath } from 'url'
 import { JSONfn } from 'jsonfn'
 import { checkFile, makeDir } from './prep.js'
+import getSummary from './summary.js'
 import { blue, yellow, magenta, grey } from '../_lib.js'
 const dir = path.dirname(fileURLToPath(import.meta.url))
 
@@ -65,7 +66,8 @@ class Pool extends EventEmitter {
     // this.workers.forEach(w => w.emit('exit'))
     // this.emit('exit');
     this.emit('end')
-    console.log(JSON.stringify(this.status, null, 2))
+    let res = getSummary(this.status)
+    console.log(JSON.stringify(res, null, 2))
     this.removeAllListeners()
     setTimeout(() => {
       // todo: figure out how to exit naturally
@@ -80,9 +82,9 @@ class Pool extends EventEmitter {
         .map((o) => (o.written !== undefined ? o.written.toLocaleString().padStart('8') : '???'))
         .join('   ')
       console.log(grey(row))
+      // are they all done?
       let allDone = this.status.every((obj) => obj.finished === true)
       if (allDone === true) {
-        // console.log(`Final worker states: ${JSON.stringify(this.status)}`)
         this.stop()
       }
     }, 500)
