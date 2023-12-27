@@ -14,6 +14,12 @@ const wget = async function (url, dir) {
   let parts = new URL(url).pathname.split(/\//)
   let filename = parts[parts.length - 1]
   let file = path.join(dir, filename)
+  // don't clobber existing file
+
+  if (fs.existsSync(file)) {
+    console.log(`File exists, skipping download: '${file}'`)
+    return
+  }
   const res = await fetch(url)
   const fileStream = fs.createWriteStream(file)
   await new Promise((resolve, reject) => {

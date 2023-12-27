@@ -13,13 +13,13 @@ var schema = {
   properties: {
     lang: {
       type: 'string',
-      description: 'Which language wikipedia to download? (please use 2-letter code)',
+      description: '\nWhich language wikipedia to download? (please use 2-letter code)',
       mesage: "Use 'fr' to download the french wikipedia, etc.",
       required: true,
       default: 'en'
     },
     output: {
-      description: 'What format do you want the results to be?',
+      description: '\nWhat format do you want the results to be?',
       message: 'hash, flat, encyclopedia, enclyclopedia-two, or ndjson',
       default: 'hash'
     }
@@ -32,7 +32,7 @@ var schema = {
   }
 }
 
-console.log('\n\n\n')
+console.log('\n\nWelcome to dumpster-dip\n   a utility to download and parse a wikimedia dump.\n\n')
 prompt.start()
 prompt.override = optimist.argv
 

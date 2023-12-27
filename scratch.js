@@ -9,7 +9,7 @@ const opts = {
   outputDir: '/Users/spencer/Desktop/dip',
   outputMode: 'encyclopedia',
   parse: function (doc) {
-    return doc.text()
+    return doc.title()
   }
 }
 
