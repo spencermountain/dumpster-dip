@@ -41,10 +41,10 @@ const getSummary = function (arr) {
   msg += '\nProcessed:'.padEnd(16) + magenta(num(all)) + ' pages'
   msg += '\nWrote:'.padEnd(16) + green(num(res.written)) + ' ' + percent(res.written, all)
   msg += '\nSkipped:'.padEnd(16) + cyan(num(res.skipped)) + ' ' + percent(res.skipped, all)
-  msg += '\n      by namespace:'.padEnd(20) + cyan(num(res.skipped_namespace))
-  msg += '\n      redirects:'.padEnd(20) + cyan(num(res.skipped_redirect))
-  msg += '\n      disambiguations:'.padEnd(20) + cyan(num(res.skipped_disambig))
-  msg += '\n      empty:'.padEnd(20) + cyan(num(res.skipped_empty))
+  msg += '\n     - namespace:'.padEnd(20) + cyan(num(res.skipped_namespace))
+  msg += '\n     - redirects:'.padEnd(20) + cyan(num(res.skipped_redirect))
+  msg += '\n     - disambig:'.padEnd(20) + cyan(num(res.skipped_disambig))
+  msg += '\n     - empty:'.padEnd(20) + cyan(num(res.skipped_empty))
 
   let diff = Date.now() - arr[0].started_at
   let mins = diff / 1000 / 60
