@@ -5,8 +5,9 @@ const afwiki = `/Users/spencer/mountain/dumpster-dip/afwiki-latest-pages-meta-cu
 
 const opts = {
   input: afwiki,
-  ns: 1,
-  outputMode: 'encyclopedia-one',
+  namespace: 1,
+  outputDir: '/Users/spencer/Desktop/dip',
+  outputMode: 'encyclopedia',
   parse: function (doc) {
     return doc.text()
   }

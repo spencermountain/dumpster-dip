@@ -22,12 +22,12 @@ const output = function (res, title, opts) {
     title = encodeTitle(title)
     dir = path.join(dir, title + '.txt')
     writeFile(dir, res.body)
-  } else if (outputMode === 'encyclopedia') {
+  } else if (outputMode === 'encyclopedia' || outputMode === 'encyclopedia-one') {
     let title = encodeTitle(res.title)
     let c = title.substring(0, 1).toLowerCase() || '-'
     dir = path.join(dir, c, title + '.txt')
     writeFile(dir, res.body)
-  } else if (outputMode === 'encyclopedia-two') {
+  } else if (outputMode === 'encyclopedia-two' || outputMode === 'encyclopedia-2') {
     let title = encodeTitle(res.title)
     let c = title.substring(0, 2).toLowerCase() || '--'
     dir = path.join(dir, c, title + '.txt')
@@ -36,7 +36,7 @@ const output = function (res, title, opts) {
     dir = path.join(dir, './index.ndjson')
     append(dir, JSON.stringify(res.body) + '\n')
   } else {
-    // (nested)
+    // (nested hash)
     title = encodeTitle(title)
     dir = path.join(dir, toNestedPath(title) + '.txt')
     writeFile(dir, res.body)

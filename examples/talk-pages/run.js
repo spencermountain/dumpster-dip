@@ -6,8 +6,8 @@ const afwiki = `./afwiki-latest-pages-meta-current.xml`
 
 const opts = {
   input: afwiki,
-  ns: 1, // do talk pages only
-  outputMode: 'encyclopedia-one',
+  namespace: 1, // do talk pages only
+  outputMode: 'encyclopedia',
   parse: function (doc) {
     return doc.text()
   }
