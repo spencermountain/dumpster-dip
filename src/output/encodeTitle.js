@@ -10,8 +10,10 @@ const encodeTitle = function (title) {
   title = encodeURIComponent(title)
   // clobber any potential dot files, or relative paths
   title = title.replace(/^\./g, '\\./')
+  // some operating systems complain with long filenames
+  if (title.length >= 255) {
+    title = title.substr(0, 254) //truncate it
+  }
   return title
 }
 export default encodeTitle
-
-console.log(encodeTitle('.foo bar'))

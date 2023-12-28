@@ -1,5 +1,7 @@
 ./results
-
+./dip
+dip
+*.xml
 # Logs
 logs
 *.log

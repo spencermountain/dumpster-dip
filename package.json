@@ -1,13 +1,16 @@
 {
   "name": "dumpster-dip",
-  "version": "0.1.4",
+  "version": "2.0.0",
   "description": "parse a wikipedia dump into tiny files",
   "main": "./src/index.js",
   "type": "module",
   "scripts": {
-    "clean": "rm -rf ./results && mkdir ./results",
-    "stat": "find results -type f | wc -l",
+    "clean": "rm -rf ./dip && mkdir ./dip",
+    "stat": "find dip -type f | wc -l",
     "watch": "node ./scratch.js"
+  },
+  "bin": {
+    "dumpster-dip": "./bin/dumpster-dip.js"
   },
   "exports": {
     ".": {
@@ -30,10 +33,15 @@
     "node": ">=12.0.0"
   },
   "dependencies": {
+    "html-entities": "^2.4.0",
+    "inquirer": "^9.2.12",
     "jsonfn": "0.31.0",
+    "optimist": "^0.6.1",
+    "prompt": "^1.3.0",
+    "shelljs": "^0.8.5",
+    "spacetime": "7.5.0",
     "sunday-driver": "1.0.2",
-    "wtf_wikipedia": "10.1.5",
-    "yargs": "17.7.2"
+    "wtf_wikipedia": ">=10.3.0"
   },
   "license": "MIT"
 }
