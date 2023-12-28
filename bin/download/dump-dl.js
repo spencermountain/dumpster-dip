@@ -3,14 +3,26 @@ import sh from 'shelljs'
 import path from 'path'
 import wget from './_wget.js'
 
+const elapsed = function (start) {
+  let diff = Date.now() - start
+  let mins = diff / 1000 / 60
+  let msg = '\n\n ' + dim('took ' + round(mins) + ' mins')
+  console.log(msg)
+}
+
 const download = async function (lang, dir) {
   let file = path.join(dir, `./${lang}wiki-latest-pages-articles.xml.bz2`)
   console.log('\n\nDownloading dump:')
   let url = `https://dumps.wikimedia.org/${lang}wiki/latest/${lang}wiki-latest-pages-articles.xml.bz2`
   sh.cd(dir) //.exec(cmd)
+  let start = Date.now()
   await wget(url, dir)
+  elapsed(start)
+
   console.log('\n\nUnzipping file:')
+  start = Date.now()
   sh.cd(dir).exec(`bzip2 -d ${file}`)
+  elapsed(start)
   console.log('✅')
 }
 // const download = function (lang, dir) {
