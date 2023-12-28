@@ -32,7 +32,7 @@ The data exports from wikimedia, arguably the world's most-important datasets, e
   <i>Sister-project <b><a href="https://github.com/spencermountain/dumpster-dive">dumpster-dive</a></b> puts this data into mongodb, instead <br/>
   use whatever you prefer!</i>
   <p></p>
-  Both projects use [wtf_wikipedia](https://github.com/spencermountain/wtf_wikipedia) to parse wikitext.
+  Both projects use <a href="https://github.com/spencermountain/wtf_wikipedia">wtf_wikipedia</a> as a parser.
 </div>
 
 <!-- spacer -->
@@ -312,7 +312,7 @@ const opts = {
 
 Given the `parse` callback, you're free to return anything you'd like.
 
-One of the charms of [wtf_wikipedia](https://github.com/spencermountain/wtf_wikipedia) is its plugin system, which allows users to add new features to the article parser.
+One of the charms of [wtf_wikipedia](https://github.com/spencermountain/wtf_wikipedia) is its [plugin system](https://observablehq.com/@spencermountain/wtf-wikipedia-plugins?collection=@spencermountain/wtf_wikipedia), which allows users to add any new features.
 
 Here we apply a [custom plugin](https://observablehq.com/@spencermountain/wtf-wikipedia-plugins) to our wtf lib, and pass it in to be available each worker:
 
@@ -350,11 +350,17 @@ dip({
 })
 ```
 
-See the [plugins available](https://github.com/spencermountain/wtf_wikipedia/tree/master/plugins), such as the [nsfw classifier](https://github.com/spencermountain/wtf-plugin-nsfw), [NHL season parser](https://github.com/spencermountain/wtf_wikipedia/tree/master/plugins/sports) or the parser for [disambiguation pages](https://github.com/spencermountain/wtf_wikipedia/tree/master/plugins/disambig)
+See the [plugins available](https://github.com/spencermountain/wtf_wikipedia/tree/master/plugins), such as the [NHL season parser](https://github.com/spencermountain/wtf_wikipedia/tree/master/plugins/sports), the [nsfw tagger](https://github.com/spencermountain/wtf-plugin-nsfw), or a parser for [disambiguation pages](https://github.com/spencermountain/wtf_wikipedia/tree/master/plugins/disambig).
 
 ---
 
+<!-- spacer -->
+<img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
+#### 👋
+
 We are commited to making this library into a great tool for parsing mediawiki projects.
-[Prs](https://github.com/spencermountain/compromise/wiki/Contributing) welcomed!
+
+**[Prs](https://github.com/spencermountain/compromise/wiki/Contributing) welcomed and respected.**
 
 MIT
