@@ -29,10 +29,11 @@ The data exports from wikimedia, arguably the world's most-important datasets, e
 <b>dumpster-dip</b> can flip this dataset into individual <b>json</b> or <b>text</b> files.
 
 <div align="right">
-Sister-project <b><a href="https://github.com/spencermountain/dumpster-dive">dumpster-dive</a></b> puts this data into mongodb, instead </div>
-<i>use whatever you prefer!</i>
-
-Both projects use [wtf_wikipedia](https://github.com/spencermountain/wtf_wikipedia) to parse articles into text & data.
+  <i>Sister-project <b><a href="https://github.com/spencermountain/dumpster-dive">dumpster-dive</a></b> puts this data into mongodb, instead <br/>
+  use whatever you prefer!</i>
+  <p></p>
+  Both projects use [wtf_wikipedia](https://github.com/spencermountain/wtf_wikipedia) to parse wikitext.
+</div>
 
 <!-- spacer -->
 <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
@@ -45,9 +46,9 @@ the easiest way to get started is to simply run:
 npx dumpster-dip
 ```
 
-which is a no-install, no-dependency way to use this library.
+which is a wild, no-install, no-dependency way to get going.
 
-This will **download**, **unzip**, and **parse** any-language wikipedia, into a selected format.
+Follow the prompts, and this will **download**, **unzip**, and **parse** any-language wikipedia, into a selected format.
 
 <!-- spacer -->
 <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
@@ -68,7 +69,7 @@ The optional params are:
 
 ## JS API
 
-Dumpster-dip also can be used as a javascript library:
+Also available to be used as a powerful javascript library:
 
 ```bash
 npm install dumpster-dip
@@ -105,7 +106,7 @@ const opts = {
     return doc.sentences()[0].text() // return the first sentence of each page
   }
 }
-// this promise takes ~4hrs
+
 dip(opts).then(() => {
   console.log('done!')
 })
@@ -236,7 +237,7 @@ let opts = {
 
 ### Examples:
 
-Wikipedia is often a complicated place. Getting specific data sometimes requires some investigation, and experimentation:
+Wikipedia is often a complicated place. Getting specific data may require some investigation, and experimentation:
 
 _See runnable examples in [./examples](https://github.com/spencermountain/dumpster-dip/tree/main/src)_
 
@@ -290,7 +291,7 @@ const opts = {
   input: `./enwiki-latest-pages-meta-current.xml`,
   namespace: 1, // do talk pages only
   parse: function (doc) {
-    return doc.text()
+    return doc.text() //return their text
   }
 }
 ```
@@ -309,7 +310,9 @@ const opts = {
 
 ### Customization
 
-Given the `parse` callback, you're free to return anything you'd like. Sometimes though, you may want to parse a page with a custom version of `wtf_wikipedia` parser - if you need any extra plugins or functionality.
+Given the `parse` callback, you're free to return anything you'd like.
+
+One of the charms of [wtf_wikipedia](https://github.com/spencermountain/wtf_wikipedia) is its plugin system, which allows users to add new features to the article parser.
 
 Here we apply a [custom plugin](https://observablehq.com/@spencermountain/wtf-wikipedia-plugins) to our wtf lib, and pass it in to be available each worker:
 
@@ -319,7 +322,7 @@ in `./myLib.js`
 import wtf from 'wtf_wikipedia'
 
 // add custom analysis as a plugin
-wtf.extend((models, templates) => {
+wtf.plugin((models, templates) => {
   // add a new method
   models.Doc.prototype.firstSentence = function () {
     return this.sentences()[0].text()
@@ -340,12 +343,14 @@ import dip from 'dumpster-dip'
 
 dip({
   input: '/path/to/dump.xml',
-  libPath: './myLib.js', // our version
+  libPath: './myLib.js', // our version (relative to cwd)
   parse: function (doc) {
     return doc.firstSentence() // use custom method
   }
 })
 ```
+
+See the [plugins available](https://github.com/spencermountain/wtf_wikipedia/tree/master/plugins), such as the [nsfw classifier](https://github.com/spencermountain/wtf-plugin-nsfw), [NHL season parser](https://github.com/spencermountain/wtf_wikipedia/tree/master/plugins/sports) or the parser for [disambiguation pages](https://github.com/spencermountain/wtf_wikipedia/tree/master/plugins/disambig)
 
 ---
 
