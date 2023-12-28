@@ -15,60 +15,63 @@
       others
     </a>
   </sub>
+    <img height="50px" src="https://user-images.githubusercontent.com/399657/68221824-09809d80-ffb8-11e9-9ef0-6ed3574b0ce8.png"/>
 </div>
 <p></p>
 
 <div align="center">
   gets a wikipedia <a href="https://dumps.wikimedia.org">xml dump</a> into tiny json files,
   <div>so you can get a bunch of easy data.</div>
-  <img height="50px" src="https://user-images.githubusercontent.com/399657/68221824-09809d80-ffb8-11e9-9ef0-6ed3574b0ce8.png"/>
 </div>
 <p></p>
 <!-- spacer -->
 <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-<b>dumpster-dip</b> is a script that allows you to parse a wikipedia dump into ad-hoc data.
+<b>dumpster-dip</b> puts data into _files_.
 
-<b><a href="https://github.com/spencermountain/dumpster-dive">dumpster-dive</a></b> is a script that puts it into mongodb, instead.
+<b><a href="https://github.com/spencermountain/dumpster-dive">dumpster-dive</a></b> puts data into mongodb, instead.
 
 <i >use whatever you prefer!</i>
 
 <!-- spacer -->
 <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
+<div align="right">
 _dumpster-dip can be used from the command-line, or as a javascript library:_
+</div>
 
-# CLI
+## Command-Line
 
-the easiest way to get started is to run
+the easiest way to get started is to simply run
 
 ```bash
 npx dumpster-dip
 ```
 
-and follow-along with the prompts.
+and follow-along with the prompts. There are no dependencies _(besides [nodejs](https://nodejs.org/en/download/))_.
 
 This will **download**, **unzip**, and **parse** any-language wikipedia, into a selected format.
 
 <!-- spacer -->
 <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-The CLI options are:
+The optional params are:
 
 ```bash
---lang fr #do the french wikipedia
+--lang fr             # do the french wikipedia
 --output encyclopedia # add all 'E' pages to ./E/
---text #return plaintext instead of json
+--text                # return plaintext instead of json
 ```
 
 <!-- spacer -->
 <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<div align="center">
+  <img height="50px" src="https://user-images.githubusercontent.com/399657/68221824-09809d80-ffb8-11e9-9ef0-6ed3574b0ce8.png"/>
+</div>
 
-<img height="50px" src="https://user-images.githubusercontent.com/399657/68221824-09809d80-ffb8-11e9-9ef0-6ed3574b0ce8.png"/>
+## JS API
 
-# JS API
-
-Dumpster-dip also can be used in a nodejs script, to allow far-more configuration:
+Dumpster-dip also can be used in javascript, which allows far-more configuration:
 
 ```bash
 npm install dumpster-dip
@@ -81,47 +84,8 @@ import dumpster from 'dumpster-dip'
 await dumpster({ file: './enwiki-latest-pages-articles.xml' })
 ```
 
+This will require you to download and unzip a dump yourself. Instructions below.
 Depending on the language, it may take a couple hours.
-
-### Options
-
-```js
-let opts = {
-  // path to unzipped dump file relative to cwd
-  file:'./enwiki-latest-pages-articles.xml' // [required]
-  // directory for all our new file(s)
-  outputDir: './dip', // (default)
-  // how we should write the results
-  outputMode: 'nested', // (default)
-
-  // define how many concurrent workers to run
-  workers: cpuCount, // default is cpu count
-  //interval to log status
-  heartbeat: 5000, //every 5 seconds
-
-  // which wikipedia namespaces to handle (null will do all)
-  namespace: 0, //(default article namespace)
-  // parse redirects, too
-  redirects: false, // (default)
-  // parse disambiguation pages, too
-  disambiguation: true, // (default)
-
-  // allow a custom wtf_wikipedia parsing library
-  libPath: 'wtf_wikipedia', // (default)
-
-  // should we skip this page or return something?
-  doPage: function (doc) {
-    return true
-  }, // (default)
-
-  // what do return, for every page
-  parse: function (doc) {
-    return doc.json()
-  } // (default)  - avoid using an arrow-function
-}
-```
-
----
 
 ### Instructions
 
@@ -135,8 +99,6 @@ cruise the <a href="https://dumps.wikimedia.org/enwiki/latest/">wikipedia dump p
 
 <p></p>
 <b>3. Start</b> the javascript <br/>
-
-`npm install dumpster-dip`
 
 ```js
 import dip from 'dumpster-dip'
@@ -155,27 +117,41 @@ dip(opts).then(() => {
 
 en-wikipedia takes about 4hrs on a macbook.
 
-<!-- spacer -->
-<img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
-
----
-
-This tool is intended to be a clean way to pull random bits out of wikipedia, like:
-
-**'all the birthdays of basketball players'**
+### Options
 
 ```js
-await dip({
-  doPage: function (doc) {
-    return doc.categories().find((cat) => cat === `American men's basketball players`)
-  },
-  parse: function (doc) {
-    return doc.infobox().get('birth_date')
-  }
-})
-```
+let opts = {
+  file: './enwiki-latest-pages-articles.xml', // path to unzipped dump file relative to cwd
+  outputDir: './dip', // directory for all our new file(s)
+  outputMode: 'nested', // how we should write the results
 
-It uses <a href="https://github.com/spencermountain/wtf_wikipedia">wtf_wikipedia</a> as the wikiscript parser.
+  // define how many concurrent workers to run
+  workers: cpuCount, // default is cpu count
+  //interval to log status
+  heartbeat: 5000, //every 5 seconds
+
+  // which wikipedia namespaces to handle (null will do all)
+  namespace: 0, //(default article namespace)
+  // parse redirects, too
+  redirects: false,
+  // parse disambiguation pages, too
+  disambiguation: true,
+
+  // allow a custom wtf_wikipedia parsing library
+  libPath: 'wtf_wikipedia',
+
+  // should we skip this page or return something?
+  doPage: function (doc) {
+    return true
+  },
+
+  // what do return, for every page
+  //- avoid using an arrow-function
+  parse: function (doc) {
+    return doc.json()
+  }
+}
+```
 
 <!-- spacer -->
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
@@ -240,6 +216,57 @@ let opts = {
 <!-- spacer -->
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
+---
+
+### Examples:
+
+This tool is intended to be a clean way to pull random bits out of wikipedia, which is often a complicated place. Getting specific data sometimes requires some investigation, and experimentation.
+
+_See more examples in [./examples dir](https://github.com/spencermountain/dumpster-dip/tree/main/src)_
+
+#### Birthdays of basketball players
+
+Process only the pages with the category [American men's basketball players](https://en.m.wikipedia.org/wiki/Category:American_men%27s_basketball_players)
+
+```js
+await dip({
+  input: `./enwiki-latest-pages-articles.xml`,
+  doPage: function (doc) {
+    return doc.categories().find((cat) => cat === `American men's basketball players`)
+  },
+  parse: function (doc) {
+    return doc.infobox().get('birth_date')
+  }
+})
+```
+
+### Film Budgets
+
+Look for pages with the [Film infobox](https://en.m.wikipedia.org/wiki/Template:Infobox_film) and grab some properties:
+
+```js
+await dip({
+  input: `./enwiki-latest-pages-articles.xml`,
+  outputMode: 'encyclopedia', // all 'E' movies under the ./e/ directory...
+  doPage: function (doc) {
+    // look for anything with a 'Film' 'infobox
+    return doc.infobox() && doc.infobox().type() === 'film'
+  },
+  parse: function (doc) {
+    let inf = doc.infobox()
+    // pluck some values from its infobox
+    return {
+      title: doc.title(),
+      budget: inf.get('budget'),
+      gross: inf.get('gross')
+    }
+  }
+})
+```
+
+<!-- spacer -->
+<img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+
 <div align="center">
   <img src="https://user-images.githubusercontent.com/399657/68221731-e8b84800-ffb7-11e9-8453-6395e0e903fa.png"/>
 </div>
@@ -288,5 +315,10 @@ dip({
   }
 })
 ```
+
+---
+
+We are commited to making this library into a great tool for parsing mediawiki projects.
+[Prs](https://github.com/spencermountain/compromise/wiki/Contributing) welcomed!
 
 MIT
