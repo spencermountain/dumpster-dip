@@ -6,7 +6,7 @@ import dlPageviews from './download/pageviews-dl.js'
 import dumpster from '../src/index.js'
 import fs from 'fs'
 import path from 'path'
-import { whichFormat } from './old/prompts.js'
+import { whichFormat } from './prompts.js'
 
 const dir = process.cwd()
 

@@ -2,7 +2,9 @@
 import sh from 'shelljs'
 import path from 'path'
 import wget from './_wget.js'
+
 const dim = (str) => '\x1b[2m' + str + '\x1b[0m'
+const round = (n) => Math.round(n * 10) / 10
 
 const elapsed = function (start) {
   let diff = Date.now() - start

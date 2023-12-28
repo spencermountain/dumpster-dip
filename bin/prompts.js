@@ -37,7 +37,7 @@ const whichFormat = async function () {
       type: 'list',
       name: 'size',
       message: 'What format would you like the results?',
-      choices: ['Flat', 'Ecyclopedia', 'Encyclopedia-two', 'ndjson'],
+      choices: ['Hash', 'Flat', 'Encyclopedia', 'Encyclopedia-two', 'ndjson'],
       filter(val) {
         return val.toLowerCase()
       }
