@@ -24,20 +24,18 @@
 <!-- spacer -->
 <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-Wikimedia publishes all their data as <a href="https://dumps.wikimedia.org">huge xml files</a>, with a notorious markup format.
+The data exports from wikimedia, arguably the world's most-important datasets, exist as <a href="https://dumps.wikimedia.org">huge xml files</a>, in a notorious markup format.
 
-<b>dumpster-dip</b> can flip this dataset into useful json or text files.
+<b>dumpster-dip</b> can flip this dataset into individual <b>json</b> or <b>text</b> files.
 
-Sister-project <b><a href="https://github.com/spencermountain/dumpster-dive">dumpster-dive</a></b> puts this data into mongodb, instead - <i>use whatever you prefer!</i>
+<div align="right">
+Sister-project <b><a href="https://github.com/spencermountain/dumpster-dive">dumpster-dive</a></b> puts this data into mongodb, instead </div>
+<i>use whatever you prefer!</i>
 
 Both projects use [wtf_wikipedia](https://github.com/spencermountain/wtf_wikipedia) to parse articles into text & data.
 
 <!-- spacer -->
 <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
-
-<div align="right">
-<i>dumpster-dip can be used from the command-line, or as a javascript library:</i>
-</div>
 
 ## Command-Line
 
@@ -79,8 +77,7 @@ npm install dumpster-dip
 ```js
 import dumpster from 'dumpster-dip' // or require('dumpster-dip')
 
-await dumpster({ file: './enwiki-latest-pages-articles.xml' })
-// 😅
+await dumpster({ file: './enwiki-latest-pages-articles.xml' }) // 😅
 ```
 
 This will require you to download and unzip a dump yourself. Instructions below.
@@ -118,7 +115,7 @@ en-wikipedia takes about 4hrs on a macbook. See expected article counts [here](h
 
 ### Options
 
-```json
+```js
 {
   file: './enwiki-latest-pages-articles.xml', // path to unzipped dump file relative to cwd
   outputDir: './dip', // directory for all our new file(s)
@@ -160,12 +157,12 @@ en-wikipedia takes about 4hrs on a macbook. See expected article counts [here](h
 dumpster-dip comes with 4 output formats:
 
 - **'flat'** - all files in 1 directory
-- **'encyclopedia'** - all 'E..' pages in `./e`
-- **'encyclopedia-two'** - all 'Ed..' pages in `./ed`
+- **'encyclopedia'** - all `'E..'` pages in `./e`
+- **'encyclopedia-two'** - all `'Ed..'` pages in `./ed`
 - **'hash'** (default) - 2 evenly-distributed directories
 - **'ndjson'** - all data in one file
 
-Sometimes operating systems don't like having ~6m files in one folder - so these options allow different nesting structures to wrangle this problem down.
+Sometimes operating systems don't like having ~6m files in one folder - so these options allow different nesting structures:
 
 ##### Encyclopedia
 
@@ -178,7 +175,7 @@ let opts = {
 }
 ```
 
-this is less ideal, because some directories become way larger than others. Also remember that titles are UTF-8.
+Remember, some directories become way larger than others. Also remember that titles are UTF-8.
 
 For two-letter folders, use `outputMode: 'encyclopedia-two'`
 
@@ -193,7 +190,7 @@ This format nests each file 2-deep, using the first 4 characters of the filename
     /Hilary_Clinton.txt
 ```
 
-Although the directory names are meaningless, the advantage of this format is that files will be distributed evenly, instead of piling-up in the 'E' directory.
+Although these directory names are meaningless, the advantage of this format is that files will be distributed evenly, instead of piling-up in the 'E' directory.
 
 This is the same scheme that wikipedia does internally.
 
@@ -207,7 +204,7 @@ let file = getPath('Dennis Rodman')
 
 ##### Flat:
 
-if you want all files in one flat directory, you can do:
+if you want all files in one flat directory, you can cross your fingers and do:
 
 ```js
 let opts = {
@@ -218,7 +215,8 @@ let opts = {
 
 ##### Ndjson
 
-if you want all results in one newline-delimited file, you can do:
+You may want all results in one newline-delimited file.
+Using this format, you can produce TSV or CSV files:
 
 ```js
 let opts = {
@@ -230,22 +228,21 @@ let opts = {
 }
 ```
 
-Using this format, you can produce TSV or CSV files.
-
 <!-- spacer -->
-<img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
-
----
+<img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
+<div align="center">
+  <img height="50px" src="https://user-images.githubusercontent.com/399657/68221824-09809d80-ffb8-11e9-9ef0-6ed3574b0ce8.png"/>
+</div>
 
 ### Examples:
 
-This tool is intended to be a clean way to pull random bits out of wikipedia, which is often a complicated place. Getting specific data sometimes requires some investigation, and experimentation.
+Wikipedia is often a complicated place. Getting specific data sometimes requires some investigation, and experimentation:
 
-_See more examples in [./examples dir](https://github.com/spencermountain/dumpster-dip/tree/main/src)_
+_See runnable examples in [./examples](https://github.com/spencermountain/dumpster-dip/tree/main/src)_
 
 #### Birthdays of basketball players
 
-Process only the pages with the category [American men's basketball players](https://en.m.wikipedia.org/wiki/Category:American_men%27s_basketball_players)
+Process only the 13,000 pages with the category [American men's basketball players](https://en.m.wikipedia.org/wiki/Category:American_men%27s_basketball_players)
 
 ```js
 await dip({
@@ -266,7 +263,7 @@ Look for pages with the [Film infobox](https://en.m.wikipedia.org/wiki/Template:
 ```js
 await dip({
   input: `./enwiki-latest-pages-articles.xml`,
-  outputMode: 'encyclopedia', // all 'E' movies under the ./e/ directory...
+  outputMode: 'encyclopedia',
   doPage: function (doc) {
     // look for anything with a 'Film' 'infobox
     return doc.infobox() && doc.infobox().type() === 'film'
@@ -281,6 +278,21 @@ await dip({
     }
   }
 })
+```
+
+#### Talk Pages
+
+Talk pages are not found in the normal 'latest-pages-articles.xml' dump. Instead, you must download the larger 'latest-pages-meta-current.xml' dump.
+To process only Talk pages, set 'namespace' to 1.
+
+```js
+const opts = {
+  input: `./enwiki-latest-pages-meta-current.xml`,
+  namespace: 1, // do talk pages only
+  parse: function (doc) {
+    return doc.text()
+  }
+}
 ```
 
 <!-- spacer -->
