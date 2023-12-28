@@ -15,40 +15,39 @@
       others
     </a>
   </sub>
+  <div>
     <img height="50px" src="https://user-images.githubusercontent.com/399657/68221824-09809d80-ffb8-11e9-9ef0-6ed3574b0ce8.png"/>
+  </div>
 </div>
 <p></p>
 
-<div align="center">
-  gets a wikipedia <a href="https://dumps.wikimedia.org">xml dump</a> into tiny json files,
-  <div>so you can get a bunch of easy data.</div>
-</div>
-<p></p>
 <!-- spacer -->
 <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-<b>dumpster-dip</b> puts data into _files_.
+Wikimedia publishes all their data as <a href="https://dumps.wikimedia.org">huge xml files</a>, with a notorious markup format.
 
-<b><a href="https://github.com/spencermountain/dumpster-dive">dumpster-dive</a></b> puts data into mongodb, instead.
+<b>dumpster-dip</b> can flip this dataset into useful json or text files.
 
-<i >use whatever you prefer!</i>
+Sister-project <b><a href="https://github.com/spencermountain/dumpster-dive">dumpster-dive</a></b> puts this data into mongodb, instead - <i>use whatever you prefer!</i>
+
+Both projects use [wtf_wikipedia](https://github.com/spencermountain/wtf_wikipedia) to parse articles into text & data.
 
 <!-- spacer -->
 <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
 <div align="right">
-_dumpster-dip can be used from the command-line, or as a javascript library:_
+<i>dumpster-dip can be used from the command-line, or as a javascript library:</i>
 </div>
 
 ## Command-Line
 
-the easiest way to get started is to simply run
+the easiest way to get started is to simply run:
 
 ```bash
 npx dumpster-dip
 ```
 
-and follow-along with the prompts. There are no dependencies _(besides [nodejs](https://nodejs.org/en/download/))_.
+which is a no-install, no-dependency way to use this library.
 
 This will **download**, **unzip**, and **parse** any-language wikipedia, into a selected format.
 
@@ -71,17 +70,17 @@ The optional params are:
 
 ## JS API
 
-Dumpster-dip also can be used in javascript, which allows far-more configuration:
+Dumpster-dip also can be used as a javascript library:
 
 ```bash
 npm install dumpster-dip
 ```
 
 ```js
-import dumpster from 'dumpster-dip'
-// or const dumpster = require('dumpster-dip')
+import dumpster from 'dumpster-dip' // or require('dumpster-dip')
 
 await dumpster({ file: './enwiki-latest-pages-articles.xml' })
+// 😅
 ```
 
 This will require you to download and unzip a dump yourself. Instructions below.
@@ -95,7 +94,7 @@ cruise the <a href="https://dumps.wikimedia.org/enwiki/latest/">wikipedia dump p
 <p></p>
 <b>2. Unzip</b> the dump <br/>
 
-`bzip2 -d ./path/to/enwiki-latest-pages-articles.xml.bz2`
+`bzip2 -d ./enwiki-latest-pages-articles.xml.bz2`
 
 <p></p>
 <b>3. Start</b> the javascript <br/>
@@ -104,7 +103,7 @@ cruise the <a href="https://dumps.wikimedia.org/enwiki/latest/">wikipedia dump p
 import dip from 'dumpster-dip'
 
 const opts = {
-  input: '/path/to/my-wikipedia-article-dump.xml',
+  input: './enwiki-latest-pages-articles.xml',
   parse: function (doc) {
     return doc.sentences()[0].text() // return the first sentence of each page
   }
@@ -115,12 +114,12 @@ dip(opts).then(() => {
 })
 ```
 
-en-wikipedia takes about 4hrs on a macbook.
+en-wikipedia takes about 4hrs on a macbook. See expected article counts [here](https://meta.wikimedia.org/wiki/List_of_Wikipedias)
 
 ### Options
 
-```js
-let opts = {
+```json
+{
   file: './enwiki-latest-pages-articles.xml', // path to unzipped dump file relative to cwd
   outputDir: './dip', // directory for all our new file(s)
   outputMode: 'nested', // how we should write the results
@@ -156,27 +155,19 @@ let opts = {
 <!-- spacer -->
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-### Outputs:
+### Output formats:
 
-By default, it outputs an individual file for every wikipedia article.
-Sometimes operating systems don't like having ~6m files in one folder, though - so it nests them 2-deep, using the first 4 characters of the filename's hash:
+dumpster-dip comes with 4 output formats:
 
-```
-/BE
-  /EF
-    /Dennis_Rodman.txt
-    /Hilary_Clinton.txt
-```
+- **'flat'** - all files in 1 directory
+- **'encyclopedia'** - all 'E..' pages in `./e`
+- **'encyclopedia-two'** - all 'Ed..' pages in `./ed`
+- **'hash'** (default) - 2 evenly-distributed directories
+- **'ndjson'** - all data in one file
 
-as a helper, this library exposes a function for navigating this directory scheme:
+Sometimes operating systems don't like having ~6m files in one folder - so these options allow different nesting structures to wrangle this problem down.
 
-```js
-import getPath from 'dumpster-dip/nested-path'
-let file = getPath('Dennis Rodman')
-// ./BE/EF/Dennis_Rodman.txt
-```
-
-This is the same scheme that wikipedia does internally.
+##### Encyclopedia
 
 to put files in folders indexed by their first letter, do:
 
@@ -191,7 +182,30 @@ this is less ideal, because some directories become way larger than others. Also
 
 For two-letter folders, use `outputMode: 'encyclopedia-two'`
 
-##### Flat results:
+#### Hash (default)
+
+This format nests each file 2-deep, using the first 4 characters of the filename's hash:
+
+```
+/BE
+  /EF
+    /Dennis_Rodman.txt
+    /Hilary_Clinton.txt
+```
+
+Although the directory names are meaningless, the advantage of this format is that files will be distributed evenly, instead of piling-up in the 'E' directory.
+
+This is the same scheme that wikipedia does internally.
+
+as a helper, this library exposes a function for navigating this directory scheme:
+
+```js
+import getPath from 'dumpster-dip/nested-path'
+let file = getPath('Dennis Rodman')
+// ./BE/EF/Dennis_Rodman.txt
+```
+
+##### Flat:
 
 if you want all files in one flat directory, you can do:
 
@@ -202,16 +216,21 @@ let opts = {
 }
 ```
 
-##### Results in one file:
+##### Ndjson
 
-if you want all results in one file, you can do:
+if you want all results in one newline-delimited file, you can do:
 
 ```js
 let opts = {
   outputDir: './results',
-  outputMode: 'ndjson'
+  outputMode: 'ndjson',
+  parse: function (doc) {
+    return [doc.title(), doc.text().length].join('\t')
+  }
 }
 ```
+
+Using this format, you can produce TSV or CSV files.
 
 <!-- spacer -->
 <img height="50px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
