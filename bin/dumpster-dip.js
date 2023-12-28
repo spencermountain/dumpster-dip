@@ -6,6 +6,7 @@ import dlPageviews from './download/pageviews-dl.js'
 import dumpster from '../src/index.js'
 import fs from 'fs'
 import path from 'path'
+import { whichFormat } from './old/prompts.js'
 
 const dir = process.cwd()
 
@@ -17,12 +18,12 @@ var schema = {
       mesage: "Use 'fr' to download the french wikipedia, etc.",
       required: true,
       default: 'en'
-    },
-    output: {
-      description: '\nWhat format do you want the results to be?',
-      message: 'hash, flat, encyclopedia, enclyclopedia-two, or ndjson',
-      default: 'hash'
     }
+    // output: {
+    //   description: '\nWhat format do you want the results to be?',
+    //   message: 'hash, flat, encyclopedia, enclyclopedia-two, or ndjson',
+    //   default: 'hash'
+    // }
     // pageviews: {
     //   description: 'Do you also want to download pageviews data? y/n',
     //   message: 'To include pageview data, type y',
@@ -38,8 +39,13 @@ prompt.override = optimist.argv
 
 const status = await prompt.get(schema)
 
+if (!status.output) {
+  status.output = await whichFormat()
+}
+
 // co-erce to boolean
 status.pageviews = status.pageviews === 'y' ? true : false
+status.text = status.text === 'y' ? true : false
 
 //download pageviews data?
 if (status.pageviews) {
@@ -55,11 +61,17 @@ if (fs.existsSync(file) === false) {
 }
 
 console.log('\n\nBeginning to process wikipedia dump:\n')
-await dumpster({
+let opts = {
   input: file,
   outputMode: status.output,
   pageviews: status.pageviews,
   parse: function (doc) {
     return doc.json()
   }
-})
+}
+if (status.text) {
+  opts.parse = function (doc) {
+    return doc.text()
+  }
+}
+await dumpster(opts)

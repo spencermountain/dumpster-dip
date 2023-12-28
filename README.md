@@ -21,8 +21,7 @@
 <div align="center">
   gets a wikipedia <a href="https://dumps.wikimedia.org">xml dump</a> into tiny json files,
   <div>so you can get a bunch of easy data.</div>
-
-  <h2 align="center">👍 〰〰〰〰〰〰〰〰 👍</h2>
+  <img height="50px" src="https://user-images.githubusercontent.com/399657/68221824-09809d80-ffb8-11e9-9ef0-6ed3574b0ce8.png"/>
 </div>
 <p></p>
 <!-- spacer -->
@@ -37,11 +36,9 @@
 <!-- spacer -->
 <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
----
+_dumpster-dip can be used from the command-line, or as a javascript library:_
 
-dumpster-dip can be used from the command-line, or as a javascript library:
-
-## CLI
+# CLI
 
 the easiest way to get started is to run
 
@@ -67,7 +64,9 @@ The CLI options are:
 <!-- spacer -->
 <img height="25px" src="https://user-images.githubusercontent.com/399657/68221862-17ceb980-ffb8-11e9-87d4-7b30b6488f16.png"/>
 
-## JS API
+<img height="50px" src="https://user-images.githubusercontent.com/399657/68221824-09809d80-ffb8-11e9-9ef0-6ed3574b0ce8.png"/>
+
+# JS API
 
 Dumpster-dip also can be used in a nodejs script, to allow far-more configuration:
 
@@ -77,8 +76,12 @@ npm install dumpster-dip
 
 ```js
 import dumpster from 'dumpster-dip'
+// or const dumpster = require('dumpster-dip')
+
 await dumpster({ file: './enwiki-latest-pages-articles.xml' })
 ```
+
+Depending on the language, it may take a couple hours.
 
 ### Options
 

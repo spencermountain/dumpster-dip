@@ -33,7 +33,6 @@
     "node": ">=12.0.0"
   },
   "dependencies": {
-    "commander": "^11.1.0",
     "html-entities": "^2.4.0",
     "inquirer": "^9.2.12",
     "jsonfn": "0.31.0",
@@ -42,8 +41,7 @@
     "shelljs": "^0.8.5",
     "spacetime": "7.5.0",
     "sunday-driver": "1.0.2",
-    "wtf_wikipedia": "10.3.0",
-    "yargs": "17.7.2"
+    "wtf_wikipedia": "10.3.0"
   },
   "license": "MIT"
 }
