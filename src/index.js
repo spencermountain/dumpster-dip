@@ -1,54 +1,35 @@
-import { getDb, closeDb } from './db.js'
+import dumpster from 'dumpster-lib'
+import write, { close } from './write.js'
 
-const DEFAULT_PATH = 'pages.db'
-
-const str = (val) => {
-  if (val === undefined || val === null) {
-    return null
-  }
-  return String(val)
+const defaults = {
+  // the sqlite file to write
+  path: 'pages.db',
+  // 'md' has the type, summary, categories, infobox and templates our table wants
+  format: 'md',
 }
 
-const json = (val) => {
-  if (val === undefined || val === null) {
-    return null
-  }
-  return JSON.stringify(val)
+// a dumpster-lib page → a row of the pages table
+const toRow = (page) => ({
+  id: page.pageID,
+  title: page.title,
+  description: page.summary,
+  type: page.type,
+  categories: page.categories,
+  infobox: page.infobox,
+  templates: page.templates,
+})
+
+const dumpsterDip = (options) => {
+  options = Object.assign({}, defaults, options)
+  const pool = dumpster(options)
+  // sqlite writes are synchronous, so each batch is committed before the pool hands over the next
+  pool.on('batch', (pages) => {
+    write(pages.map(toRow), options.path)
+  })
+  // merge the wal back into the main file, and close
+  pool.on('end', () => close())
+  return pool.done
 }
 
-const id = (val) => {
-  if (typeof val === 'number') {
-    return val
-  }
-  return str(val) // sqlite's integer affinity converts numeric strings
-}
-
-// write one batch of parsed articles as rows, in a single transaction
-const write = (articles, path = DEFAULT_PATH) => {
-  if (!articles || articles.length === 0) {
-    return 0
-  }
-  const { db, insert } = getDb(path)
-  db.exec('BEGIN')
-  try {
-    for (const a of articles) {
-      insert.run(
-        id(a.id),
-        str(a.title),
-        str(a.description),
-        str(a.type),
-        json(a.categories),
-        json(a.infobox),
-        json(a.templates)
-      )
-    }
-    db.exec('COMMIT')
-  } catch (err) {
-    db.exec('ROLLBACK')
-    throw err
-  }
-  return articles.length
-}
-
-export default write
-export const close = closeDb
+export default dumpsterDip
+export { write, close }
