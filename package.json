@@ -6,17 +6,11 @@
   "type": "module",
   "scripts": {
     "watch": "node ./scratch.js",
-    "test": "node --test \"tests/*.test.js\""
+    "test": "node --test \"tests/*.test.js\"",
+    "lint": "eslint ."
   },
-  "author": "Spencer Kelly <spencermountain@gmail.com> (http://spencermounta.in)",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/spencermountain/dumpster-dip.git"
-  },
-  "bugs": {
-    "url": "https://github.com/spencermountain/dumpster-dip/issues"
-  },
-  "homepage": "https://github.com/spencermountain/dumpster-dip#readme",
+  "author": "Spencer Kelly <spencermountain@gmail.com> (https://spencermountain.dev)",
+  "repository": "github:spencermountain/dumpster-dip",
   "engines": {
     "node": ">=22.5.0"
   },
